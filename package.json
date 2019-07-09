@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node diagnostic.js 55443",
+    "forever": "./node_modules/forever/bin/forever start diagnostic.js 56873",
     "test": "echo \"Error: no test specified\" && exit 1",
     "help": "echo -e \"VPN into the schools network then navigate to flip3.engr.oregonstate.edu:55443\n\""
   },
@@ -15,6 +16,7 @@
     "express": "^4.13.2",
     "express-handlebars": "^2.0.1",
     "express-session": "^1.11.3",
+    "forever": "^1.0.0",
     "mysql": "^2.8.0"
   }
 }
