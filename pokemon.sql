@@ -44,30 +44,31 @@ INSERT INTO `pokemon` VALUES (1,'Bulbasaur', 2, 'The bulb pokemon'),
 UNLOCK TABLES;
 
 --
--- Table structure for table `bsg_cert_people`
+-- Table structure for table `moves`
 --
 
-DROP TABLE IF EXISTS `bsg_cert_people`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bsg_cert_people` (
-      `cid` int(11) NOT NULL DEFAULT '0',
-      `pid` int(11) NOT NULL DEFAULT '0',
-      `certification_date` date NOT NULL,
-      PRIMARY KEY (`cid`,`pid`),
-      KEY `pid` (`pid`),
-      CONSTRAINT `bsg_cert_people_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `bsg_cert` (`certification_id`),
-      CONSTRAINT `bsg_cert_people_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `bsg_people` (`character_id`)
+DROP TABLE IF EXISTS `moves`;
+
+CREATE TABLE `moves` (
+      `id` int(11) NOT NULL DEFAULT '0',
+      `name` varchar(255) NOT NULL,
+      `power` int(11) DEFAULT NULL,
+      `accuracy` int(11) DEFAULT NULL,
+      PRIMARY KEY (`id`),
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `bsg_cert_people`
+-- Dumping data for table `moves`
 --
 
-LOCK TABLES `bsg_cert_people` WRITE;
-/*!40000 ALTER TABLE `bsg_cert_people` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bsg_cert_people` ENABLE KEYS */;
+LOCK TABLES `moves` WRITE;
+/*!40000 ALTER TABLE `moves` ENABLE KEYS */;
+INSERT INTO `moves` VALUES
+(1, 'Pound', 40, 100),
+(12, 'Guillotine', NULL, NULL),
+(63, 'Hyper Beam', 150, 90),
+(742, 'Double Iron Bash', 60, 100)
 UNLOCK TABLES;
 
 --
