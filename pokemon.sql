@@ -1,6 +1,6 @@
 -- MySQL dump 10.16  Distrib 10.1.37-MariaDB, for Linux (x86_64)
 --
--- Host: localhost    Database: bsg
+-- Host: localhost    Database: pokemon_20
 -- ------------------------------------------------------
 -- Server version   10.1.37-MariaDB
 
@@ -36,7 +36,8 @@ CREATE TABLE `pokemon` (
 
 LOCK TABLES `pokemon` WRITE;
 /*!40000 ALTER TABLE `pokemon` DISABLE KEYS */;
-INSERT INTO `pokemon` VALUES (1,'Bulbasaur', 2, 'The bulb pokemon'),
+INSERT INTO `pokemon` VALUES
+(1,'Bulbasaur', 2, 'The bulb pokemon'),
 (2, 'Ivysaur', 3, 'A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon'),
 (3, 'Venasaur', NULL, 'Final stage ofo Bulbasaur'),
 (4,'Squirtle', 5, 'Squirtle squad');
@@ -44,17 +45,17 @@ INSERT INTO `pokemon` VALUES (1,'Bulbasaur', 2, 'The bulb pokemon'),
 UNLOCK TABLES;
 
 --
--- Table structure for table `moves`
+-- Table structure for table `move`
 --
 
-DROP TABLE IF EXISTS `moves`;
+DROP TABLE IF EXISTS `move`;
 
-CREATE TABLE `moves` (
+CREATE TABLE `move` (
       `id` int(11) NOT NULL DEFAULT '0',
       `name` varchar(255) NOT NULL,
       `power` int(11) DEFAULT NULL,
       `accuracy` int(11) DEFAULT NULL,
-      PRIMARY KEY (`id`),
+      PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -62,107 +63,212 @@ CREATE TABLE `moves` (
 -- Dumping data for table `moves`
 --
 
-LOCK TABLES `moves` WRITE;
-/*!40000 ALTER TABLE `moves` ENABLE KEYS */;
-INSERT INTO `moves` VALUES
+LOCK TABLES `move` WRITE;
+/*!40000 ALTER TABLE `move` ENABLE KEYS */;
+INSERT INTO `move` VALUES
 (1, 'Pound', 40, 100),
 (12, 'Guillotine', NULL, NULL),
 (63, 'Hyper Beam', 150, 90),
-(742, 'Double Iron Bash', 60, 100)
+(742, 'Double Iron Bash', 60, 100);
 UNLOCK TABLES;
+
+--
+-- Table structure for table `type`
+--
+
+DROP TABLE IF EXISTS `type`;
+
+CREATE TABLE `type` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `name` varchar(255) NOT NULL,
+      PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `type`
+--
+
+# LOCK TABLES `bsg_people` WRITE;
+# /*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
+# INSERT INTO `bsg_people` VALUES (6,'Saul','Tigh',NULL,71,'Human'),(9,'Callandra','Henderson',NULL,NULL,'Human'),(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
+# /*!40000 ALTER TABLE `bsg_people` ENABLE KEYS */;
+# UNLOCK TABLES;
+
+
+--
+-- Table structure for table `trainer`
+--
+
+DROP TABLE IF EXISTS `trainer`;
+
+CREATE TABLE `trainer` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `name` varchar(255) NOT NULL,
+      PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+# --
+# -- Dumping data for table `trainer`
+# --
+#
+# LOCK TABLES `bsg_people` WRITE;
+# /*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
+# INSERT INTO `bsg_people` VALUES (6,'Saul','Tigh',NULL,71,'Human'),(9,'Callandra','Henderson',NULL,NULL,'Human'),(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
+# /*!40000 ALTER TABLE `bsg_people` ENABLE KEYS */;
+# UNLOCK TABLES;
+
+
+--
+-- Table structure for table `effect`
+--
+
+DROP TABLE IF EXISTS `effect`;
+
+CREATE TABLE `effect` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `name` varchar(255) NOT NULL,
+      PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+# --
+# -- Dumping data for table `effect`
+# --
+#
+# LOCK TABLES `bsg_people` WRITE;
+# /*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
+# INSERT INTO `bsg_people` VALUES (6,'Saul','Tigh',NULL,71,'Human'),(9,'Callandra','Henderson',NULL,NULL,'Human'),(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
+# /*!40000 ALTER TABLE `bsg_people` ENABLE KEYS */;
+# UNLOCK TABLES;
+
 
 --
 -- Table structure for table `bsg_people`
 --
 
-DROP TABLE IF EXISTS `bsg_people`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bsg_people` (
-      `character_id` int(11) NOT NULL AUTO_INCREMENT,
-      `fname` varchar(255) NOT NULL,
-      `lname` varchar(255) DEFAULT NULL,
-      `homeworld` int(11) DEFAULT NULL,
-      `age` int(11) DEFAULT NULL,
-      `race` varchar(5) NOT NULL DEFAULT 'Human',
-      PRIMARY KEY (`character_id`),
-      KEY `homeworld` (`homeworld`),
-      CONSTRAINT `bsg_people_ibfk_1` FOREIGN KEY (`homeworld`) REFERENCES `bsg_planets` (`planet_id`) ON DELETE SET NULL ON UPDATE CASCADE
+DROP TABLE IF EXISTS `pokemon_move`;
+
+CREATE TABLE `pokemon_move` (
+      `pokemon_id` int(11) NOT NULL,
+      `move_id` int(11) NOT NULL,
+      PRIMARY KEY (`pokemon_id`, 'move_id'),
+      CONSTRAINT `pm_fk_1` FOREIGN KEY (`pokemon_id`) REFERENCES `pokemon` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+      CONSTRAINT `pm_fk_2` FOREIGN KEY (`move_id`) REFERENCES `move` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `bsg_people`
---
 
-LOCK TABLES `bsg_people` WRITE;
-/*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
-INSERT INTO `bsg_people` VALUES (6,'Saul','Tigh',NULL,71,'Human'),(9,'Callandra','Henderson',NULL,NULL,'Human'),(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
-/*!40000 ALTER TABLE `bsg_people` ENABLE KEYS */;
-UNLOCK TABLES;
+# --
+# -- Dumping data for table `pokemon_move`
+# --
+#
+# LOCK TABLES `bsg_people` WRITE;
+# /*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
+# INSERT INTO `bsg_people` VALUES (6,'Saul','Tigh',NULL,71,'Human'),(9,'Callandra','Henderson',NULL,NULL,'Human'),(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
+# /*!40000 ALTER TABLE `bsg_people` ENABLE KEYS */;
+# UNLOCK TABLES;
 
---
--- Table structure for table `bsg_planets`
---
 
-DROP TABLE IF EXISTS `bsg_planets`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bsg_planets` (
-      `planet_id` int(11) NOT NULL AUTO_INCREMENT,
-      `name` varchar(255) NOT NULL,
-      `population` bigint(20) DEFAULT NULL,
-      `language` varchar(255) DEFAULT NULL,
-      `capital` varchar(255) DEFAULT NULL,
-      PRIMARY KEY (`planet_id`),
-      UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `pokemon_type`;
+
+CREATE TABLE `pokemon_type` (
+      `pokemon_id` int(11) NOT NULL,
+      `type_id` int(11) NOT NULL,
+      PRIMARY KEY (`pokemon_id`, 'type_id'),
+      CONSTRAINT `pt_fk_1` FOREIGN KEY (`pokemon_id`) REFERENCES `pokemon` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+      CONSTRAINT `pt_fk_2` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `bsg_planets`
---
 
-LOCK TABLES `bsg_planets` WRITE;
-/*!40000 ALTER TABLE `bsg_planets` DISABLE KEYS */;
-INSERT INTO `bsg_planets` VALUES (1,'Gemenon',2800000000,'Old Gemenese','Oranu'),(2,'Leonis',2600000000,'Leonese','Luminere'),(3,'Caprica',4900000000,'Caprican','Caprica City'),(7,'Sagittaron',1700000000,NULL,'Tawa'),(16,'Aquaria',25000,NULL,NULL),(17,'Canceron',6700000000,NULL,'Hades'),(18,'Libran',2100000,NULL,NULL),(19,'Picon',1400000000,NULL,'Queestown'),(20,'Scorpia',450000000,NULL,'Celeste'),(21,'Tauron',2500000000,'Tauron','Hypatia'),(22,'Virgon',4300000000,NULL,'Boskirk');
-/*!40000 ALTER TABLE `bsg_planets` ENABLE KEYS */;
-UNLOCK TABLES;
+# --
+# -- Dumping data for table `pokemon_type`
+# --
+#
+# LOCK TABLES `bsg_people` WRITE;
+# /*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
+# INSERT INTO `bsg_people` VALUES (6,'Saul','Tigh',NULL,71,'Human'),(9,'Callandra','Henderson',NULL,NULL,'Human'),(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
+# /*!40000 ALTER TABLE `bsg_people` ENABLE KEYS */;
+# UNLOCK TABLES;
 
---
--- Table structure for table `bsg_spaceship`
---
 
-DROP TABLE IF EXISTS `bsg_spaceship`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bsg_spaceship` (
-      `id` int(11) NOT NULL AUTO_INCREMENT,
-      `name` varchar(255) NOT NULL,
-      `seperate_saucer_section` bit(1) DEFAULT b'0',
-      `length` int(11) NOT NULL,
-      PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `pokemon_trainer`;
+
+CREATE TABLE `pokemon_trainer` (
+      `pokemon_id` int(11) NOT NULL,
+      `trainer_id` int(11) NOT NULL,
+      PRIMARY KEY (`pokemon_id`, 'trainer_id'),
+      CONSTRAINT `ptr_fk_1` FOREIGN KEY (`pokemon_id`) REFERENCES `pokemon` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+      CONSTRAINT `ptr_fk_2` FOREIGN KEY (`trainer_id`) REFERENCES `trainer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+# --
+# -- Dumping data for table `pokemon_trainer`
+# --
+#
+# LOCK TABLES `bsg_people` WRITE;
+# /*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
+# INSERT INTO `bsg_people` VALUES (6,'Saul','Tigh',NULL,71,'Human'),(9,'Callandra','Henderson',NULL,NULL,'Human'),(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
+# /*!40000 ALTER TABLE `bsg_people` ENABLE KEYS */;
+# UNLOCK TABLES;
+
+
+DROP TABLE IF EXISTS `trainer_type`;
+
+CREATE TABLE `trainer_type` (
+      `trainer_id` int(11) NOT NULL,
+      `type_id` int(11) NOT NULL,
+      PRIMARY KEY (`trainer_id`, 'type_id'),
+      CONSTRAINT `tt_fk_1` FOREIGN KEY (`trainer_id`) REFERENCES `trainer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+      CONSTRAINT `tt_fk_2` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+# --
+# -- Dumping data for table `trainer_type`
+# --
+#
+# LOCK TABLES `bsg_people` WRITE;
+# /*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
+# INSERT INTO `bsg_people` VALUES (6,'Saul','Tigh',NULL,71,'Human'),(9,'Callandra','Henderson',NULL,NULL,'Human'),(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
+# /*!40000 ALTER TABLE `bsg_people` ENABLE KEYS */;
+# UNLOCK TABLES;
+
+
+
+
 --
--- Dumping data for table `bsg_spaceship`
+-- Table structure for table `type_effect`
 --
 
-LOCK TABLES `bsg_spaceship` WRITE;
-/*!40000 ALTER TABLE `bsg_spaceship` DISABLE KEYS */;
-INSERT INTO `bsg_spaceship` VALUES (1,'t1','',0),(2,'t2','',0),(3,'t2','',0),(4,'t3','',0),(5,'t4','\0',0),(6,'t5','',0);
-/*!40000 ALTER TABLE `bsg_spaceship` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+DROP TABLE IF EXISTS `type_effect`;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+CREATE TABLE `type_effect` (
+      `type_id1` int(11) NOT NULL,
+      `type_id2` int(11) NOT NULL,
+      `effect_id` int(11) NOT NULL,
+      PRIMARY KEY (`type_id1`, `type_id2`, 'effect_id'),
+      CONSTRAINT `pm_fk_1` FOREIGN KEY (`type_id1`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+      CONSTRAINT `pm_fk_2` FOREIGN KEY (`type_id2`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+      CONSTRAINT `pm_fk_3` FOREIGN KEY (`effect_id`) REFERENCES `effect` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Dump completed on 2019-02-03  0:38:33
+
+# --
+# -- Dumping data for table `type_effect`
+# --
+#
+# LOCK TABLES `bsg_people` WRITE;
+# /*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
+# INSERT INTO `bsg_people` VALUES (6,'Saul','Tigh',NULL,71,'Human'),(9,'Callandra','Henderson',NULL,NULL,'Human'),(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
+# /*!40000 ALTER TABLE `bsg_people` ENABLE KEYS */;
+# UNLOCK TABLES;
+
+
 
