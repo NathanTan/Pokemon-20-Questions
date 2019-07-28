@@ -163,19 +163,22 @@ CREATE TABLE `effect` (
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-# --
-# -- Dumping data for table `effect`
-# --
-#
-# LOCK TABLES `bsg_people` WRITE;
-# /*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
-# INSERT INTO `bsg_people` VALUES (6,'Saul','Tigh',NULL,71,'Human'),(9,'Callandra','Henderson',NULL,NULL,'Human'),(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
-# /*!40000 ALTER TABLE `bsg_people` ENABLE KEYS */;
-# UNLOCK TABLES;
+--
+-- Dumping data for table `effect`
+--
+
+LOCK TABLES `effect` WRITE;
+/*!40000 ALTER TABLE `effect` DISABLE KEYS */;
+INSERT INTO `effect` VALUES 
+(0, 'Not Very Effective'),
+(1, 'Super Effective'),
+(2, 'Does Not Effect')
+/*!40000 ALTER TABLE `effect` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 --
--- Table structure for table `bsg_people`
+-- Table structure for table `pokemon_move`
 --
 
 DROP TABLE IF EXISTS `pokemon_move`;
