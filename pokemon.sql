@@ -273,15 +273,16 @@ CREATE TABLE `trainer_type` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
-# --
-# -- Dumping data for table `trainer_type`
-# --
-#
-# LOCK TABLES `bsg_people` WRITE;
-# /*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
-# INSERT INTO `bsg_people` VALUES (6,'Saul','Tigh',NULL,71,'Human'),(9,'Callandra','Henderson',NULL,NULL,'Human'),(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
-# /*!40000 ALTER TABLE `bsg_people` ENABLE KEYS */;
-# UNLOCK TABLES;
+--
+-- Dumping data for table `trainer_type`
+--
+LOCK TABLES `trainer_type` WRITE;
+/*!40000 ALTER TABLE `trainer_type` DISABLE KEYS */;
+INSERT INTO `trainer_type` VALUES 
+(4, 10)
+(5, 3)
+/*!40000 ALTER TABLE `trainer_type` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 
