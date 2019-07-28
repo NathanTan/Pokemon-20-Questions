@@ -68,6 +68,7 @@ LOCK TABLES `move` WRITE;
 INSERT INTO `move` VALUES
 (1, 'Pound', 40, 100),
 (12, 'Guillotine', NULL, NULL),
+(33, 'Tackle', 40, 100),
 (63, 'Hyper Beam', 150, 90),
 (742, 'Double Iron Bash', 60, 100);
 UNLOCK TABLES;
@@ -185,15 +186,19 @@ CREATE TABLE `pokemon_move` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
-# --
-# -- Dumping data for table `pokemon_move`
-# --
-#
-# LOCK TABLES `bsg_people` WRITE;
-# /*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
-# INSERT INTO `bsg_people` VALUES (6,'Saul','Tigh',NULL,71,'Human'),(9,'Callandra','Henderson',NULL,NULL,'Human'),(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
-# /*!40000 ALTER TABLE `bsg_people` ENABLE KEYS */;
-# UNLOCK TABLES;
+--
+-- Dumping data for table `pokemon_move`
+--
+
+LOCK TABLES `pokemon_move` WRITE;
+/*!40000 ALTER TABLE `pokemon_move` DISABLE KEYS */;
+INSERT INTO `pokemon_move` VALUES 
+(1, 33),
+(2, 33),
+(3, 33),
+(4, 33)
+/*!40000 ALTER TABLE `pokemon_move` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 DROP TABLE IF EXISTS `pokemon_type`;
