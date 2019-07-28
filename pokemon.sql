@@ -89,11 +89,30 @@ CREATE TABLE `type` (
 -- Dumping data for table `type`
 --
 
-# LOCK TABLES `bsg_people` WRITE;
-# /*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
-# INSERT INTO `bsg_people` VALUES (6,'Saul','Tigh',NULL,71,'Human'),(9,'Callandra','Henderson',NULL,NULL,'Human'),(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
-# /*!40000 ALTER TABLE `bsg_people` ENABLE KEYS */;
-# UNLOCK TABLES;
+LOCK TABLES `type` WRITE;
+/*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
+INSERT INTO `type` VALUES 
+(0, 'Normal'),
+(1, 'Fire'),
+(2, 'Fighting'),
+(3, 'Water'),
+(4, 'Flying'),
+(5, 'Grass'),
+(6, 'Poison'),
+(7, 'Electric'),
+(8, 'Ground'),
+(9, 'Psychic'),
+(10, 'Rock'),
+(11, 'Ice'),
+(12, 'Bug'),
+(13, 'Dragon'),
+(14, 'Ghost'),
+(15, 'Dark'),
+(16, 'Steel'),
+(17, 'Fairy'),
+(18, '???')
+/*!40000 ALTER TABLE `type` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 --
@@ -187,10 +206,14 @@ CREATE TABLE `pokemon_type` (
 # -- Dumping data for table `pokemon_type`
 # --
 #
-# LOCK TABLES `bsg_people` WRITE;
-# /*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
-# INSERT INTO `bsg_people` VALUES (6,'Saul','Tigh',NULL,71,'Human'),(9,'Callandra','Henderson',NULL,NULL,'Human'),(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
-# /*!40000 ALTER TABLE `bsg_people` ENABLE KEYS */;
+LOCK TABLES `pokemon_type` WRITE;
+/*!40000 ALTER TABLE `pokemon_type` DISABLE KEYS */;
+
+INSERT INTO `pokemon_type` VALUES 
+(6,'Saul','Tigh',NULL,71,'Human'),
+(9,'Callandra','Henderson',NULL,NULL,'Human'),
+(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
+/*!40000 ALTER TABLE `pokemon_type` ENABLE KEYS */;
 # UNLOCK TABLES;
 
 
