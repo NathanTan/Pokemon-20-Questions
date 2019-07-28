@@ -40,7 +40,11 @@ INSERT INTO `pokemon` VALUES
 (1,'Bulbasaur', 2, 'The bulb pokemon'),
 (2, 'Ivysaur', 3, 'A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon'),
 (3, 'Venasaur', NULL, 'Final stage ofo Bulbasaur'),
-(4,'Squirtle', 5, 'Squirtle squad');
+(4,'Squirtle', 5, 'Squirtle squad'),
+(74, 'Geodude', 75, 'Geodude, the Rock Pokémon. Geodude has incredibly high defensive power, making it virtually resistant to any physical attacks.'),
+(75, 'Graveler', 76, 'Rolls down slopes to move. It rolls over any obstacle without slowing or changing its direction.'),
+(95, 'Onix', 208, 'As it grows, the stone portions of its body harden to become similar to a diamond, but colored black.'),
+(208, 'Steelix', 'Its body has been compressed deep under the ground. As a result, it is even harder than a diamond.');
 /*!40000 ALTER TABLE `pokemon` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,6 +72,7 @@ LOCK TABLES `move` WRITE;
 INSERT INTO `move` VALUES
 (1, 'Pound', 40, 100),
 (12, 'Guillotine', NULL, NULL),
+(33, 'Tackle', 40, 100),
 (63, 'Hyper Beam', 150, 90),
 (742, 'Double Iron Bash', 60, 100);
 UNLOCK TABLES;
@@ -128,15 +133,21 @@ CREATE TABLE `trainer` (
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-# --
-# -- Dumping data for table `trainer`
-# --
-#
-# LOCK TABLES `bsg_people` WRITE;
-# /*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
-# INSERT INTO `bsg_people` VALUES (6,'Saul','Tigh',NULL,71,'Human'),(9,'Callandra','Henderson',NULL,NULL,'Human'),(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
-# /*!40000 ALTER TABLE `bsg_people` ENABLE KEYS */;
-# UNLOCK TABLES;
+--
+-- Dumping data for table `trainer`
+--
+
+LOCK TABLES `trainer` WRITE;
+/*!40000 ALTER TABLE `trainer` DISABLE KEYS */;
+INSERT INTO `trainer` VALUES 
+(0, 'Red'),
+(1, 'Blue'),
+(2, 'Ash'),
+(3, 'Gary'),
+(4, 'Brock'),
+(5, 'Misty')
+/*!40000 ALTER TABLE `trainer` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 --
@@ -179,15 +190,19 @@ CREATE TABLE `pokemon_move` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
-# --
-# -- Dumping data for table `pokemon_move`
-# --
-#
-# LOCK TABLES `bsg_people` WRITE;
-# /*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
-# INSERT INTO `bsg_people` VALUES (6,'Saul','Tigh',NULL,71,'Human'),(9,'Callandra','Henderson',NULL,NULL,'Human'),(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
-# /*!40000 ALTER TABLE `bsg_people` ENABLE KEYS */;
-# UNLOCK TABLES;
+--
+-- Dumping data for table `pokemon_move`
+--
+
+LOCK TABLES `pokemon_move` WRITE;
+/*!40000 ALTER TABLE `pokemon_move` DISABLE KEYS */;
+INSERT INTO `pokemon_move` VALUES 
+(1, 33),
+(2, 33),
+(3, 33),
+(4, 33)
+/*!40000 ALTER TABLE `pokemon_move` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 DROP TABLE IF EXISTS `pokemon_type`;
@@ -202,17 +217,20 @@ CREATE TABLE `pokemon_type` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
-# --
-# -- Dumping data for table `pokemon_type`
-# --
-#
+--
+-- Dumping data for table `pokemon_type`
+--
+
 LOCK TABLES `pokemon_type` WRITE;
 /*!40000 ALTER TABLE `pokemon_type` DISABLE KEYS */;
-
 INSERT INTO `pokemon_type` VALUES 
-(6,'Saul','Tigh',NULL,71,'Human'),
-(9,'Callandra','Henderson',NULL,NULL,'Human'),
-(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
+(1, 5),
+(1, 6),
+(2, 5),
+(2, 6),
+(3, 5),
+(3, 6),
+(4, 3)
 /*!40000 ALTER TABLE `pokemon_type` ENABLE KEYS */;
 # UNLOCK TABLES;
 
@@ -229,15 +247,18 @@ CREATE TABLE `pokemon_trainer` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
-# --
-# -- Dumping data for table `pokemon_trainer`
-# --
-#
-# LOCK TABLES `bsg_people` WRITE;
-# /*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
-# INSERT INTO `bsg_people` VALUES (6,'Saul','Tigh',NULL,71,'Human'),(9,'Callandra','Henderson',NULL,NULL,'Human'),(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
-# /*!40000 ALTER TABLE `bsg_people` ENABLE KEYS */;
-# UNLOCK TABLES;
+--
+-- Dumping data for table `pokemon_trainer`
+--
+
+LOCK TABLES `pokemon_trainer` WRITE;
+/*!40000 ALTER TABLE `pokemon_trainer` DISABLE KEYS */;
+INSERT INTO `pokemon_trainer` VALUES 
+(74, 4),
+(75, 4),
+(95, 4)
+/*!40000 ALTER TABLE `pokemon_trainer` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 DROP TABLE IF EXISTS `trainer_type`;
