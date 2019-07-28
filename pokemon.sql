@@ -128,15 +128,21 @@ CREATE TABLE `trainer` (
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-# --
-# -- Dumping data for table `trainer`
-# --
-#
-# LOCK TABLES `bsg_people` WRITE;
-# /*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
-# INSERT INTO `bsg_people` VALUES (6,'Saul','Tigh',NULL,71,'Human'),(9,'Callandra','Henderson',NULL,NULL,'Human'),(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
-# /*!40000 ALTER TABLE `bsg_people` ENABLE KEYS */;
-# UNLOCK TABLES;
+--
+-- Dumping data for table `trainer`
+--
+
+LOCK TABLES `trainer` WRITE;
+/*!40000 ALTER TABLE `trainer` DISABLE KEYS */;
+INSERT INTO `trainer` VALUES 
+(0, 'Red'),
+(1, 'Blue'),
+(2, 'Ash'),
+(3, 'Gary'),
+(4, 'Brock'),
+(5, 'Misty')
+/*!40000 ALTER TABLE `trainer` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 --
