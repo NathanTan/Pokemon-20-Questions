@@ -213,17 +213,20 @@ CREATE TABLE `pokemon_type` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
-# --
-# -- Dumping data for table `pokemon_type`
-# --
-#
+--
+-- Dumping data for table `pokemon_type`
+--
+
 LOCK TABLES `pokemon_type` WRITE;
 /*!40000 ALTER TABLE `pokemon_type` DISABLE KEYS */;
-
 INSERT INTO `pokemon_type` VALUES 
-(6,'Saul','Tigh',NULL,71,'Human'),
-(9,'Callandra','Henderson',NULL,NULL,'Human'),
-(121,'harry','goober',18,23,'Human'),(156,'','',1,0,'Human'),(157,'','',3,0,'Human'),(158,'The','Man',16,22,'Human');
+(1, 5),
+(1, 6),
+(2, 5),
+(2, 6),
+(3, 5),
+(3, 6),
+(4, 3)
 /*!40000 ALTER TABLE `pokemon_type` ENABLE KEYS */;
 # UNLOCK TABLES;
 
