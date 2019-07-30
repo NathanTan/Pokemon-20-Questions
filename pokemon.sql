@@ -28,7 +28,6 @@ CREATE TABLE `pokemon` (
       `description` varchar(255) DEFAULT NULL,
       PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `pokemon`
@@ -44,7 +43,7 @@ INSERT INTO `pokemon` VALUES
 (74, 'Geodude', 75, 'Geodude, the Rock Pokémon. Geodude has incredibly high defensive power, making it virtually resistant to any physical attacks.'),
 (75, 'Graveler', 76, 'Rolls down slopes to move. It rolls over any obstacle without slowing or changing its direction.'),
 (95, 'Onix', 208, 'As it grows, the stone portions of its body harden to become similar to a diamond, but colored black.'),
-(208, 'Steelix', 'Its body has been compressed deep under the ground. As a result, it is even harder than a diamond.');
+(208, 'Steelix', NULL, 'Its body has been compressed deep under the ground. As a result, it is even harder than a diamond.');
 /*!40000 ALTER TABLE `pokemon` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +60,6 @@ CREATE TABLE `move` (
       `accuracy` int(11) DEFAULT NULL,
       PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `moves`
@@ -88,14 +86,13 @@ CREATE TABLE `type` (
       `name` varchar(255) NOT NULL,
       PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `type`
 --
 
 LOCK TABLES `type` WRITE;
-/*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
+/*!40000 ALTER TABLE `type` DISABLE KEYS */;
 INSERT INTO `type` VALUES 
 (0, 'Normal'),
 (1, 'Fire'),
@@ -115,7 +112,7 @@ INSERT INTO `type` VALUES
 (15, 'Dark'),
 (16, 'Steel'),
 (17, 'Fairy'),
-(18, '???')
+(19, '???');
 /*!40000 ALTER TABLE `type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,7 +128,6 @@ CREATE TABLE `trainer` (
       `name` varchar(255) NOT NULL,
       PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `trainer`
@@ -145,7 +141,7 @@ INSERT INTO `trainer` VALUES
 (2, 'Ash'),
 (3, 'Gary'),
 (4, 'Brock'),
-(5, 'Misty')
+(5, 'Misty');
 /*!40000 ALTER TABLE `trainer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,7 +157,6 @@ CREATE TABLE `effect` (
       `name` varchar(255) NOT NULL,
       PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `effect`
@@ -172,7 +167,7 @@ LOCK TABLES `effect` WRITE;
 INSERT INTO `effect` VALUES 
 (0, 'Not Very Effective'),
 (1, 'Super Effective'),
-(2, 'Does Not Effect')
+(2, 'Does Not Effect');
 /*!40000 ALTER TABLE `effect` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,7 +185,6 @@ CREATE TABLE `pokemon_move` (
       CONSTRAINT `pm_fk_1` FOREIGN KEY (`pokemon_id`) REFERENCES `pokemon` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
       CONSTRAINT `pm_fk_2` FOREIGN KEY (`move_id`) REFERENCES `move` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 
 --
@@ -203,7 +197,7 @@ INSERT INTO `pokemon_move` VALUES
 (1, 33),
 (2, 33),
 (3, 33),
-(4, 33)
+(4, 33);
 /*!40000 ALTER TABLE `pokemon_move` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,7 +211,6 @@ CREATE TABLE `pokemon_type` (
       CONSTRAINT `pt_fk_1` FOREIGN KEY (`pokemon_id`) REFERENCES `pokemon` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
       CONSTRAINT `pt_fk_2` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 
 --
@@ -233,7 +226,7 @@ INSERT INTO `pokemon_type` VALUES
 (2, 6),
 (3, 5),
 (3, 6),
-(4, 3)
+(4, 3);
 /*!40000 ALTER TABLE `pokemon_type` ENABLE KEYS */;
 # UNLOCK TABLES;
 
@@ -247,7 +240,6 @@ CREATE TABLE `pokemon_trainer` (
       CONSTRAINT `ptr_fk_1` FOREIGN KEY (`pokemon_id`) REFERENCES `pokemon` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
       CONSTRAINT `ptr_fk_2` FOREIGN KEY (`trainer_id`) REFERENCES `trainer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 
 --
@@ -259,7 +251,7 @@ LOCK TABLES `pokemon_trainer` WRITE;
 INSERT INTO `pokemon_trainer` VALUES 
 (74, 4),
 (75, 4),
-(95, 4)
+(95, 4);
 /*!40000 ALTER TABLE `pokemon_trainer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,7 +265,6 @@ CREATE TABLE `trainer_type` (
       CONSTRAINT `tt_fk_1` FOREIGN KEY (`trainer_id`) REFERENCES `trainer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
       CONSTRAINT `tt_fk_2` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 
 --
@@ -283,7 +274,7 @@ LOCK TABLES `trainer_type` WRITE;
 /*!40000 ALTER TABLE `trainer_type` DISABLE KEYS */;
 INSERT INTO `trainer_type` VALUES 
 (4, 10)
-(5, 3)
+(5, 3);
 /*!40000 ALTER TABLE `trainer_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -305,7 +296,6 @@ CREATE TABLE `type_effect` (
       CONSTRAINT `pm_fk_2` FOREIGN KEY (`type_id2`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
       CONSTRAINT `pm_fk_3` FOREIGN KEY (`effect_id`) REFERENCES `effect` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 
 --
@@ -435,7 +425,7 @@ INSERT INTO `type_effect` VALUES
 (17, 6, 0),
 (17, 16, 1),
 (17, 15, 1),
-(17, 16, 0)
+(17, 16, 0);
 /*!40000 ALTER TABLE `type_effect` ENABLE KEYS */;
 UNLOCK TABLES;
 
