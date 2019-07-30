@@ -5,9 +5,19 @@
     <title>Types</title>
 
     <style>
-        .wrapper div {
+        .wrapper {
+            position: relative;
             float: left;
-            clear: none;
+            margin-right: 2em;
+            /*clear: none;*/
+        }
+
+        .inner {
+            width: 200px;
+        }
+
+        .inner select {
+            width: 100%;
         }
     </style>
 </head>
@@ -17,53 +27,76 @@
     <fieldset>
         <legend>Add or edit a Type</legend>
         <label>Name: <input type="text"></label>
-        </br>
-        <div class="wrapper">
-            <div>
-                <label>Available types:</label>
+        <br/>
+        <label>Drag from the available types to the appropriate effect for the current type.</label>
+        <br/>
+            <div class="wrapper">
+                <div class="inner">
+                    <label>Available types:</label>
+                </div>
+                <div class="inner">
+                    <label>
+                        <select multiple="multiple" name="types">
+                            <option>Bulbasaur</option>
+                            <option>Ivysaur</option>
+                            <option>Venasaur</option>
+                            <option>Squirtle</option>
+                            <option>Geodude</option>
+                            <option>Graveler</option>
+                            <option>Onix</option>
+                            <option>Steelix</option>
+                        </select>
+                    </label>
+                </div>
             </div>
-            <div>
-                <select name="types" multiple="multiple">
-                    <option>text1</option>
-                    <option>text2</option>
-                    <option>text3</option>
-                    <option>text4</option>
-                    <option>text5</option>
-                </select>
-            </div>
-        </div>
-        <div class="wrapper">
-            <div>
+            <div class="inner">
                 <label>Very effective against:</label>
             </div>
-            <div>
-                <select name="types" multiple="multiple">
-                    <option>text1</option>
-                    <option>text2</option>
-                    <option>text3</option>
-                    <option>text4</option>
-                    <option>text5</option>
-                </select>
+            <div class="inner">
+                <label>
+                    <select multiple="multiple" name="types">
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                    </select>
+                </label>
             </div>
-        </div>
-        </div>
-        <label>Weak against: <select>
-            <option>Water</option>
-            <option>Flying</option>
-            <option>Grass</option>
-        </select></label>
-        </br>
-        <label>No action toward: <select>
-            <option>Pokemon1</option>
-            <option>Pokemon2</option>
-            <option>Pokemon3</option>
-        </select></label>
-        </br>
-        <input type="submit" value="Save">
+            <div class="inner">
+                <label>Weak against:</label>
+            </div>
+            <div class="inner">
+                <label>
+                    <select multiple="multiple" name="types">
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                    </select>
+                </label>
+            </div>
+            <div class="inner">
+                <label>Does not affect:</label>
+            </div>
+            <div class="inner">
+                <label>
+                    <select multiple="multiple" name="types">
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                    </select>
+                </label>
+            </div>
+    <br/>
+        <input style="clear: both" type="submit" value="Save">
     </fieldset>
 </form>
 
-</br>
+<br/>
 
 <table style="width:80%">
     <tr>
