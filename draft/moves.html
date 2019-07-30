@@ -2,20 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Pokemons</title>
+    <title>Moves</title>
 </head>
 <body>
 
 <form>
     <fieldset>
         <legend>Add or edit a Pokemon</legend>
-        <label>Name: <input type="text"></label>
+        <label>Number: <input type="text"></label>
         </br>
-        <label>Description: <input type="text"></label>
+        <label>Name: <input type="text"></label>
         </br>
         <label>Type: <select><option>Water</option><option>Flying</option><option>Grass</option></select></label>
         </br>
-        <label>Evolution: <select><option>Pokemon1</option><option>Pokemon2</option><option>Pokemon3</option></select></label>
+        <label>Power: <input type="text"></label>
+        </br>
+        <label>Accuracy: <input type="text"></label>
         </br>
         <input type="submit" value="Save">
     </fieldset>
@@ -23,36 +25,47 @@
 
 </br>
 
+(1, 'Pound', 40, 100),
+(12, 'Guillotine', NULL, NULL),
+(33, 'Tackle', 40, 100),
+(63, 'Hyper Beam', 150, 90),
+(742, 'Double Iron Bash', 60, 100);
+
+
 <table style="width:80%">
     <tr>
+        <th>Number</th>
         <th>Name</th>
-        <th>Description</th>
         <th>Type</th>
-        <th>Evolution</th>
+        <th>Power</th>
+        <th>Accuracy</th>
         <th></th>
         <th></th>
     </tr>
     <tr>
-        <td>Bulbasaur</td>
-        <td>The bulb pokemon</td>
+        <td>1</td>
+        <td>Pound</td>
         <td>Grass, Poisony</td>
-        <td>Ivysaur</td>
+        <td>40</td>
+        <td>100</td>
         <td><input type="submit" value="Edit"></td>
         <td><input type="submit" value="Delete"></td>
     </tr>
     <tr>
-        <td>Ivysaur</td>
-        <td>A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon</td>
+        <td>12</td>
+        <td>Guillotine</td>
         <td>Grass, Poisony</td>
-        <td>Venasaur</td>
+        <td>NULL</td>
+        <td>NULL</td>
         <td><input type="submit" value="Edit"></td>
         <td><input type="submit" value="Delete"></td>
     </tr>
     <tr>
-        <td>Venasaur</td>
-        <td>Final stage of Bulbasaur</td>
+        <td>33</td>
+        <td>Tackle</td>
         <td>Grass, Poisony</td>
-        <td>None</td>
+        <td>40</td>
+        <td>100</td>
         <td><input type="submit" value="Edit"></td>
         <td><input type="submit" value="Delete"></td>
     </tr>

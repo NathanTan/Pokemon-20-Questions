@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Types</title>
+
+    <style>
+        .wrapper div {
+            float: left;
+            clear: none;
+        }
+    </style>
+</head>
+<body>
+
+<form>
+    <fieldset>
+        <legend>Add or edit a Type</legend>
+        <label>Name: <input type="text"></label>
+        </br>
+        <div class="wrapper">
+            <div>
+                <label>Available types:</label>
+            </div>
+            <div>
+                <select name="types" multiple="multiple">
+                    <option>text1</option>
+                    <option>text2</option>
+                    <option>text3</option>
+                    <option>text4</option>
+                    <option>text5</option>
+                </select>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div>
+                <label>Very effective against:</label>
+            </div>
+            <div>
+                <select name="types" multiple="multiple">
+                    <option>text1</option>
+                    <option>text2</option>
+                    <option>text3</option>
+                    <option>text4</option>
+                    <option>text5</option>
+                </select>
+            </div>
+        </div>
+        </div>
+        <label>Weak against: <select>
+            <option>Water</option>
+            <option>Flying</option>
+            <option>Grass</option>
+        </select></label>
+        </br>
+        <label>No action toward: <select>
+            <option>Pokemon1</option>
+            <option>Pokemon2</option>
+            <option>Pokemon3</option>
+        </select></label>
+        </br>
+        <input type="submit" value="Save">
+    </fieldset>
+</form>
+
+</br>
+
+<table style="width:80%">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Evolution</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>Bulbasaur</td>
+        <td>The bulb pokemon</td>
+        <td>Grass, Poisony</td>
+        <td>Ivysaur</td>
+        <td><input type="submit" value="Edit"></td>
+        <td><input type="submit" value="Delete"></td>
+    </tr>
+    <tr>
+        <td>Ivysaur</td>
+        <td>A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon</td>
+        <td>Grass, Poisony</td>
+        <td>Venasaur</td>
+        <td><input type="submit" value="Edit"></td>
+        <td><input type="submit" value="Delete"></td>
+    </tr>
+    <tr>
+        <td>Venasaur</td>
+        <td>Final stage of Bulbasaur</td>
+        <td>Grass, Poisony</td>
+        <td>None</td>
+        <td><input type="submit" value="Edit"></td>
+        <td><input type="submit" value="Delete"></td>
+    </tr>
+</table>
+
+</body>
+</html>

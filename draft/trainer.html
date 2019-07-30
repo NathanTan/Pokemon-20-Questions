@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trainers</title>
+
+    <style>
+        .wrapper {
+            position: relative;
+            float: left;
+            margin-right: 2em;
+            /*clear: none;*/
+        }
+
+        .inner {
+            width: 200px;
+        }
+
+        .inner select {
+            width: 100%;
+        }
+    </style>
+
+</head>
+<body>
+
+<form>
+    <fieldset>
+        <legend>Add or edit a Trainer</legend>
+        <label>Name: <input type="text"></label>
+        </br>
+        <label>Type: <select>
+            <option>Rock</option>
+            <option>Water</option>
+            <option>Flying</option>
+            <option>Grass</option>
+        </select></label>
+        </br>
+        <div class="wrapper">
+            <div class="inner">
+                <label>Pokemon Team:</label>
+            </div>
+            <div class="inner">
+                <select multiple="multiple" name="types">
+                    <option></option>
+                    <option></option>
+                    <option></option>
+                    <option></option>
+                    <option></option>
+                </select>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div>&nbsp;</div>
+            <div>
+                <input type="submit" value="->">
+            </div>
+            <div>
+                <input type="submit" value="<-">
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="inner">
+                <label>Available:</label>
+            </div>
+            <div class="inner">
+                <select multiple="multiple" name="types">
+                    <option>Bulbasaur</option>
+                    <option>Ivysaur</option>
+                    <option>Venasaur</option>
+                    <option>Squirtle</option>
+                    <option>Geodude</option>
+                    <option>Graveler</option>
+                    <option>Onix</option>
+                    <option>Steelix</option>
+                </select>
+            </div>
+        </div>
+        </br>
+        <input style="clear: both" type="submit" value="Save">
+    </fieldset>
+</form>
+
+</br>
+
+<table style="width:80%">
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Pokemon Team</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>Brock</td>
+        <td>Rock</td>
+        <td>Geodude, Graveler</td>
+        <td><input type="submit" value="Edit"></td>
+        <td><input type="submit" value="Delete"></td>
+    </tr>
+    <tr>
+        <td>Misty</td>
+        <td>Water</td>
+        <td>None</td>
+        <td><input type="submit" value="Edit"></td>
+        <td><input type="submit" value="Delete"></td>
+    </tr>
+</table>
+
+</body>
+</html>
