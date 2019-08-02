@@ -6,20 +6,20 @@
 </head>
 <body>
 
-<form>
+<form method="POST" action="/move">
     <fieldset>
         <legend>Add or edit a Move</legend>
-        <label>Number: <input type="text"></label>
+        <label>Number: </label><input type="text" name="number">
         <br/>
-        <label>Name: <input type="text"></label>
+        <label>Name: </label><input type="text" name="name">
         <br/>
         <label>Type: <select><option>Normal</option><option>Water</option><option>Flying</option><option>Grass</option></select></label>
         <br/>
-        <label>Power: <input type="text"></label>
+        <label>Power: </label><input type="text" name="power">
         <br/>
-        <label>Accuracy: <input type="text"></label>
+        <label>Accuracy: </label><input type="text" name="accuracy">
         <br/>
-        <input type="submit" value="Save">
+        <input type="submit" value="submit">
     </fieldset>
 </form>
 

@@ -1,10 +1,10 @@
 {
-  "name": "hello-world",
+  "name": "pokemon-20-questions",
   "version": "1.0.0",
   "description": "Hello world with express and node.js",
   "main": "app.js",
   "scripts": {
-    "start": "node diagnostic.js 55443",
+    "start": "node server.js",
     "forever": "./node_modules/forever/bin/forever start diagnostic.js 56873",
     "test": "echo \"Error: no test specified\" && exit 1",
     "help": "echo -e \"VPN into the schools network then navigate to flip3.engr.oregonstate.edu:55443\n\""
@@ -12,11 +12,19 @@
   "author": "OSU",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.13.3",
-    "express": "^4.13.2",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
     "express-handlebars": "^2.0.1",
     "express-session": "^1.11.3",
     "forever": "^1.0.0",
     "mysql": "^2.8.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NathanTan/Pokemon-20-Questions.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NathanTan/Pokemon-20-Questions/issues"
+  },
+  "homepage": "https://github.com/NathanTan/Pokemon-20-Questions#readme"
 }
