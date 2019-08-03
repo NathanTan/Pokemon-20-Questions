@@ -7,10 +7,17 @@ const { getPokemon } = require('./db/pokemon')
 const staticPath = path.join(__dirname, '/public')
 app.use(express.static(staticPath))
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 7433
 const bodyParser = require('body-parser')
 
-const mysql = req.app.get('mysql');
+/* Create Pool */
+const { createPool } = require('mysql')
+const { mysqlPool } = require('./db/sqlPool')
+//const pool = createPool() // TODO: add the sql pool object
+//console.log("the thing: " + JSON.stringify(process.env.MYSQL_USER))
+
+const pool = require('./dbcon.js')
+
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -20,7 +27,12 @@ app.get('/move', (req, res, next) => {
 })
 
 app.get('/pokemon', (req, res, next) => {
-    let allPokemon = getPokemon()
+
+
+//    console.log('mysql: ' + JSON.stringify(mysqlPool))
+    console.log('pool:', pool)
+    
+    let allPokemon = getPokemon(res, pool, null, null)
     console.log(allPokemon)
     res.status(200).sendFile('./draft/pokemon.html', {root: __dirname })
 })

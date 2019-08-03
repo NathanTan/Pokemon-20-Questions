@@ -1,12 +1,15 @@
-function getPokemon(res, mysql, context, onComplete){
-    mysql.pool.query("SELECT name FROM pokemon", function(error, results, fields){
+exports.getPokemon = function (res, mysqlPool, context, onComplete){
+    console.log("getPokemon pool:", mysqlPool)
+    mysqlPool.pool.query("SELECT * FROM pokemon", function(error, results, fields){
         if(error){
             res.write(JSON.stringify(error));
             res.end();
         }
+        console.log("results: ", results)
+        if (context != null)
         context.pokemon  = results;
+    if (onComplete != undefined)
         onComplete();
     });
 }
 
-export default getPokemon
