@@ -1,13 +1,16 @@
-var path = require('path')
-var express = require('express')
+const path = require('path')
+const express = require('express')
 
-var app = express()
+const app = express()
+const { getPokemon } = require('./db/pokemon')
 
-var staticPath = path.join(__dirname, '/public')
+const staticPath = path.join(__dirname, '/public')
 app.use(express.static(staticPath))
 
 const port = process.env.PORT || 3000
 const bodyParser = require('body-parser')
+
+const mysql = req.app.get('mysql');
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -17,6 +20,8 @@ app.get('/move', (req, res, next) => {
 })
 
 app.get('/pokemon', (req, res, next) => {
+    let allPokemon = getPokemon()
+    console.log(allPokemon)
     res.status(200).sendFile('./draft/pokemon.html', {root: __dirname })
 })
 
