@@ -12,11 +12,11 @@ const bodyParser = require('body-parser')
 
 /* Create Pool */
 const { createPool } = require('mysql')
-const { mysqlPool } = require('./db/sqlPool')
+const { pool } = require('./db/sqlPool')
 //const pool = createPool() // TODO: add the sql pool object
 //console.log("the thing: " + JSON.stringify(process.env.MYSQL_USER))
 
-const pool = require('./dbcon.js')
+//const pool = require('./dbcon.js')
 
 
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -29,7 +29,7 @@ app.get('/move', (req, res, next) => {
 app.get('/pokemon', (req, res, next) => {
 
 
-//    console.log('mysql: ' + JSON.stringify(mysqlPool))
+    //    console.log('mysql: ' + JSON.stringify(mysqlPool))
     console.log('pool:', pool)
     
     let allPokemon = getPokemon(res, pool, null, null)
