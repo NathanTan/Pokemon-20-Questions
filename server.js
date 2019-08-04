@@ -68,11 +68,7 @@ app.get('/typeData', (req, res) => {
 app.post('/move', (req, res) => {
     console.log(req.body)
     let move = req.body
-//    getAllMoves(res, pool, null, null)
-//    res.status(200).sendFile('./draft/move.html', {root: __dirname })
-
-//    move.type = "Normal" // TODO: Make the type value come from the dropdown
-
+    
     let sql = "insert into move (id, name, power, accuracy) values (?, ?, ?, ?)"
     let inserts = [move.number, move.name, move.power, move.accuracy]
     sql = pool.query(sql, inserts, function(error, results, fields) {
@@ -88,8 +84,22 @@ app.post('/move', (req, res) => {
 })
 
 app.post('/pokemon', (req, res) => {
-    let context = {}
-    getAllPokemons(res, pool, context, null)
+    console.log(req.body)
+    let pokemon = req.body
+    pokemon.id = 9999 // TODO: Make this auto increment in the db
+    pokemon.evolution = null // TODO: fix this
+     
+    let sql = "insert into pokemon (id, name, evolution, description) values (?, ?, ?, ?)"
+    let inserts = [pokemon.id, pokemon.name, pokemon.evolution, pokemon.description]
+    sql = pool.query(sql, inserts, function(error, results, fields) {
+        if (error){
+            res.write(JSON.stringify(error))
+            res.end()
+        }
+        else {
+            res.status(200).sendFile('./draft/pokemon.html', {root: __dirname })
+        }
+    })
 })
 
 app.post('/trainer', (req, res) => {
