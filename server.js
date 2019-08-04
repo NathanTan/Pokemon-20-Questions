@@ -16,11 +16,6 @@ const bodyParser = require('body-parser')
 /* Create Pool */
 const { createPool } = require('mysql')
 const { pool } = require('./db/sqlPool')
-//const pool = createPool() // TODO: add the sql pool object
-//console.log("the thing: " + JSON.stringify(process.env.MYSQL_USER))
-
-//const pool = require('./dbcon.js')
-
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -44,6 +39,30 @@ app.get('/type', (req, res, next) => {
 app.get('/', (req, res, next) => {
     res.status(200).sendFile('./draft/index.html', {root: __dirname })
 })
+
+/* READs */
+app.get('/moveData', (req, res) => {
+    console.log(req.body)
+    let move = req.body
+    getAllMoves(res, pool, null, null)
+})
+
+app.get('/pokemonData', (req, res) => {
+    let context = {}
+    getAllPokemons(res, pool, context, null)
+})
+
+app.get('/trainerData', (req, res) => {
+    let trainer = req.body
+    getAllTrainers(res, pool, null, null)
+})
+
+app.get('/typeData', (req, res) => {
+    let type = req.body
+    getAllTypes(res, pool, null, null)
+})
+
+
 
 /* Posts */
 app.post('/move', (req, res) => {
