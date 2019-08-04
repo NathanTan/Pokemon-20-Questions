@@ -19,6 +19,25 @@ const { pool } = require('./db/sqlPool')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
+
+
+function writeData(sql, inserts, returnUrl, res) {
+  let result = pool.query(sql, inserts, function(error, results, fields) {
+        if (error){
+            console.log(JSON.stringify(error))
+            res.write(JSON.stringify(error))
+            res.end()
+        }
+        else {
+            res.status(200).sendFile(returnUrl, {root: __dirname })
+        }
+    })
+}
+
+
+
+
+
 /* Routes */
 app.get('/move', (req, res, next) => {
     res.status(200).sendFile('./draft/move.html', {root: __dirname })
@@ -71,16 +90,7 @@ app.post('/move', (req, res) => {
     
     let sql = "insert into move (id, name, power, accuracy) values (?, ?, ?, ?)"
     let inserts = [move.number, move.name, move.power, move.accuracy]
-    sql = pool.query(sql, inserts, function(error, results, fields) {
-        if (error){
-            res.write(JSON.stringify(error))
-            res.end()
-        }
-        else {
-            res.status(200).sendFile('./draft/move.html', {root: __dirname })
-        }
-
-    })
+    writeData(sql, inserts, './draft/move.html', res)
 })
 
 app.post('/pokemon', (req, res) => {
@@ -91,25 +101,29 @@ app.post('/pokemon', (req, res) => {
      
     let sql = "insert into pokemon (id, name, evolution, description) values (?, ?, ?, ?)"
     let inserts = [pokemon.id, pokemon.name, pokemon.evolution, pokemon.description]
-    sql = pool.query(sql, inserts, function(error, results, fields) {
-        if (error){
-            res.write(JSON.stringify(error))
-            res.end()
-        }
-        else {
-            res.status(200).sendFile('./draft/pokemon.html', {root: __dirname })
-        }
-    })
+
+    writeData(sql, inserts, './draft/pokemon.html', res)
 })
 
 app.post('/trainer', (req, res) => {
     let trainer = req.body
     getAllTrainers(res, pool, null, null)
+    console.log(req.body)
+    
+    let sql = "insert into trainer (id, name) values (?,?)"
+    let inserts = [trainer.id, trainer. name]
+
+    writeData(sql, inserts, './draft/trainer.html', res)
 })
 
 app.post('/type', (req, res) => {
     let type = req.body
     getAllTypes(res, pool, null, null)
+
+    let sql = "insert into type (name) values (?)"
+    let insert = [type.name]
+
+    writeData(sql, insert, './draft/type.html', res)
 })
 
 app.use('*', function (req, res, next) {
