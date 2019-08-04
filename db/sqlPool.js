@@ -5,18 +5,12 @@
 
 const { createPool } = require('mysql');
 
-console.log("Creating pool")
-
-
 const mysqlPool = createPool({
         host: 'classmysql.engr.oregonstate.edu',
         port: process.env.MYSQL_PORT || 3306,
         database: 'cs340_tann',
         user: 'cs340_tann',
-        password: 
+        password:
 })
 
-console.log(mysqlPool)
-
 module.exports.pool = mysqlPool
-//module.exports = mysqlPool

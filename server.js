@@ -2,7 +2,10 @@ const path = require('path')
 const express = require('express')
 
 const app = express()
-const { getPokemon } = require('./db/pokemon')
+const { getAllPokemons } = require('./db/pokemon')
+const { getAllTrainers } = require('./db/trainer')
+const { getAllTypes } = require('./db/type')
+const { getAllMoves } = require('./db/move')
 
 const staticPath = path.join(__dirname, '/public')
 app.use(express.static(staticPath))
@@ -27,13 +30,6 @@ app.get('/move', (req, res, next) => {
 })
 
 app.get('/pokemon', (req, res, next) => {
-
-
-    //    console.log('mysql: ' + JSON.stringify(mysqlPool))
-    console.log('pool:', pool)
-    
-    let allPokemon = getPokemon(res, pool, null, null)
-    console.log(allPokemon)
     res.status(200).sendFile('./draft/pokemon.html', {root: __dirname })
 })
 
@@ -53,25 +49,23 @@ app.get('/', (req, res, next) => {
 app.post('/move', (req, res) => {
     console.log(req.body)
     let move = req.body
-    res.status(200).sendFile('./draft/move.html', {root: __dirname })
+    getAllMoves(res, pool, null, null)
+//    res.status(200).sendFile('./draft/move.html', {root: __dirname })
 })
 
 app.post('/pokemon', (req, res) => {
-    console.log(req.body)
-    let pokemon = req.body
-    res.status(200).sendFile('./draft/pokemon.html', {root: __dirname })
+    let context = {}
+    getAllPokemons(res, pool, context, null)
 })
 
 app.post('/trainer', (req, res) => {
-    console.log(req.body)
     let trainer = req.body
-    res.status(200).sendFile('./draft/trainer.html', {root: __dirname })
+    getAllTrainers(res, pool, null, null)
 })
 
 app.post('/type', (req, res) => {
-    console.log(req.body)
     let type = req.body
-    res.status(200).sendFile('./draft/type.html', {root: __dirname })
+    getAllTypes(res, pool, null, null)
 })
 
 app.use('*', function (req, res, next) {

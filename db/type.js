@@ -1,6 +1,5 @@
-exports.getAllPokemons = function (res, mysqlPool, context, onComplete){
-    console.log("getPokemon pool:", mysqlPool)
-        mysqlPool.query("SELECT * FROM pokemon", function(error, results, fields){
+exports.getAllTypes = function (res, mysqlPool, context, onComplete){
+        mysqlPool.query("SELECT * FROM type", function(error, results, fields){
             if(error){
                 console.log("ERROR:", error)
                 res.write(JSON.stringify(error))
