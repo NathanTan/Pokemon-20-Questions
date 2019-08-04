@@ -6,16 +6,16 @@
 </head>
 <body>
 
-<form>
+<form method="POST" action="/pokemon"> 
     <fieldset>
         <legend>Add or edit a Pokemon</legend>
-        <label>Name: <input type="text"></label>
+        <label>Name: </label><input type="text" name="name">
         <br/>
-        <label>Description: <input type="text"></label>
+        <label>Description: </label><input type="text" name="description">
         <br/>
-        <label>Type: <select><option>Water</option><option>Flying</option><option>Grass</option></select></label>
+        <label>Type: </label><select name="type"><option>Water</option><option>Flying</option><option>Grass</option></select>
         <br/>
-        <label>Evolution: <select><option>Pokemon1</option><option>Pokemon2</option><option>Pokemon3</option></select></label>
+        <label>Evolution: </label><select name="evolution"><option>Pokemon1</option><option>Pokemon2</option><option>Pokemon3</option></select>
         <br/>
         <input type="submit" value="Save">
     </fieldset>

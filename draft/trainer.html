@@ -24,12 +24,14 @@
 </head>
 <body>
 
-<form>
+<!-- These forms need a name attr on each field for the bodyparser server side -->
+
+<form method="POST" action="/trainer">
     <fieldset>
         <legend>Add or edit a Trainer</legend>
-        <label>Name: <input type="text"></label>
+        <label>Name: </label><input type="text" name="name">
         <br/>
-        <label>Type: <select>
+        <label>Type: <select name="type">
             <option>Rock</option>
             <option>Water</option>
             <option>Flying</option>
