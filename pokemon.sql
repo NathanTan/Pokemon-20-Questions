@@ -292,9 +292,9 @@ CREATE TABLE `type_effect` (
       `type_id2` int(11) NOT NULL,
       `effect_id` int(11) NOT NULL,
       PRIMARY KEY (`type_id1`, `type_id2`, `effect_id`),
-      CONSTRAINT `pm_fk_1` FOREIGN KEY (`type_id1`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-      CONSTRAINT `pm_fk_2` FOREIGN KEY (`type_id2`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-      CONSTRAINT `pm_fk_3` FOREIGN KEY (`effect_id`) REFERENCES `effect` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+      CONSTRAINT `te_fk_1` FOREIGN KEY (`type_id1`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+      CONSTRAINT `te_fk_2` FOREIGN KEY (`type_id2`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+      CONSTRAINT `te_fk_3` FOREIGN KEY (`effect_id`) REFERENCES `effect` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
 
 
