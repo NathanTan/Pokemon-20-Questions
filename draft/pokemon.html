@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Pokemons</title>
-    <script src="../js/pokemon.js"></script>
+    <script src="/js/fetcher.js"></script>
+    <script src="/js/populate-data.js"></script>
 </head>
 <body>
 
@@ -14,7 +15,7 @@
         <br/>
         <label>Description: </label><input type="text" name="description">
         <br/>
-        <label>Type: </label><select name="type"><option>Water</option><option>Flying</option><option>Grass</option></select>
+        <label>Type: </label><select id= "ptypes" name="type"></select>
         <br/>
         <label>Evolution: </label><input type="number" name="evolution">
         <br/>
@@ -29,61 +30,30 @@
 <button id="getData">Get Data</button>
 
 <table id="pokemons" style="width:80%">
-<!--    <tr>-->
-<!--        <th>Name</th>-->
-<!--        <th>Description</th>-->
-<!--        <th>Type</th>-->
-<!--        <th>Evolution</th>-->
-<!--        <th></th>-->
-<!--        <th></th>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td>Bulbasaur</td>-->
-<!--        <td>The bulb pokemon</td>-->
-<!--        <td>Grass, Poisony</td>-->
-<!--        <td>Ivysaur</td>-->
-<!--        <td><input type="submit" value="Edit"></td>-->
-<!--        <td><input type="submit" value="Delete"></td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td>Ivysaur</td>-->
-<!--        <td>A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon</td>-->
-<!--        <td>Grass, Poisony</td>-->
-<!--        <td>Venasaur</td>-->
-<!--        <td><input type="submit" value="Edit"></td>-->
-<!--        <td><input type="submit" value="Delete"></td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td>Venasaur</td>-->
-<!--        <td>Final stage of Bulbasaur</td>-->
-<!--        <td>Grass, Poisony</td>-->
-<!--        <td>None</td>-->
-<!--        <td><input type="submit" value="Edit"></td>-->
-<!--        <td><input type="submit" value="Delete"></td>-->
-<!--    </tr>-->
 </table>
 
 <p><a href="/">Back to Home</a></p>
 
 
 <script>
-    function fetchData() {
+    window.onload = function () {
+        getTypes();
+    };
+
+    function getPokemons() {
         console.log("using url:", window.location.href)
-        var endpoint = window.location.href + "Data"
-        fetch(endpoint)
-            .then(function(response) {
-            return response.json();
-            })
-            .then(function(myJson) {
-            console.log(JSON.stringify(myJson));
-            populateData("pokemons", myJson);
-            });
+        let endpoint = window.location.href + "Data"
+        fetchData(endpoint, data => populateTable("pokemons", data));
     }
 
+    function getTypes() {
+        let endpoint = window.location.origin + "/typeData"
+        fetchData(endpoint, data => populateSelect("ptypes", data));
+    }
 
     // Set event handlers
     //document.getElementById("submit").addEventListener("click", () => {})
-    document.getElementById("getData").addEventListener("click", fetchData)
+    document.getElementById("getData").addEventListener("click", getPokemons)
 </script>
 
 

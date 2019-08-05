@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Moves</title>
+    <script src="/js/fetcher.js"></script>
+    <script src="/js/populate-data.js"></script>
 </head>
 <body>
 
@@ -16,7 +18,7 @@
         <br/>
         <label>Name: </label><input type="text" name="name">
         <br/>
-        <label>Type: <select><option>Normal</option><option>Water</option><option>Flying</option><option>Grass</option></select></label>
+        <label>Type: <select id="mtypes"></select></label>
         <br/>
         <label>Power: </label><input type="text" name="power">
         <br/>
@@ -32,64 +34,30 @@
 
 <button id="getData">Get Data</button>
 
-<table style="width:80%">
-    <tr>
-        <th>Number</th>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Power</th>
-        <th>Accuracy</th>
-        <th></th>
-        <th></th>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>Pound</td>
-        <td>Normal</td>
-        <td>40</td>
-        <td>100</td>
-        <td><input type="submit" value="Edit"></td>
-        <td><input type="submit" value="Delete"></td>
-    </tr>
-    <tr>
-        <td>12</td>
-        <td>Guillotine</td>
-        <td>Normal</td>
-        <td>NULL</td>
-        <td>NULL</td>
-        <td><input type="submit" value="Edit"></td>
-        <td><input type="submit" value="Delete"></td>
-    </tr>
-    <tr>
-        <td>33</td>
-        <td>Tackle</td>
-        <td>Normal</td>
-        <td>40</td>
-        <td>100</td>
-        <td><input type="submit" value="Edit"></td>
-        <td><input type="submit" value="Delete"></td>
-    </tr>
+<table id="moves" style="width:80%">
 </table>
 
 <p><a href="/">Back to Home</a></p>
 
 
 <script>
-    function fetchData() {
+    window.onload = function () {
+        getTypes();
+    };
+
+    function getMoves() {
         console.log("using url:", window.location.href)
-        var endpoint = window.location.href + "Data"
-        fetch(endpoint)
-            .then(function(response) {
-            return response.json();
-            })
-            .then(function(myJson) {
-            console.log(JSON.stringify(myJson));
-            });
+        let endpoint = window.location.href + "Data"
+        fetchData(endpoint, data => populateTable("moves", data));
     }
 
+    function getTypes() {
+        let endpoint = window.location.origin + "/typeData"
+        fetchData(endpoint, data => populateSelect("mtypes", data));
+    }
 
     // Set event handlers
-    document.getElementById("getData").addEventListener("click", fetchData)
+    document.getElementById("getData").addEventListener("click", getMoves)
 </script>
 
 
