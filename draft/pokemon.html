@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Pokemons</title>
+    <script src="../js/pokemon.js"></script>
 </head>
 <body>
 
@@ -27,39 +28,39 @@
 
 <button id="getData">Get Data</button>
 
-<table style="width:80%">
-    <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Type</th>
-        <th>Evolution</th>
-        <th></th>
-        <th></th>
-    </tr>
-    <tr>
-        <td>Bulbasaur</td>
-        <td>The bulb pokemon</td>
-        <td>Grass, Poisony</td>
-        <td>Ivysaur</td>
-        <td><input type="submit" value="Edit"></td>
-        <td><input type="submit" value="Delete"></td>
-    </tr>
-    <tr>
-        <td>Ivysaur</td>
-        <td>A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon</td>
-        <td>Grass, Poisony</td>
-        <td>Venasaur</td>
-        <td><input type="submit" value="Edit"></td>
-        <td><input type="submit" value="Delete"></td>
-    </tr>
-    <tr>
-        <td>Venasaur</td>
-        <td>Final stage of Bulbasaur</td>
-        <td>Grass, Poisony</td>
-        <td>None</td>
-        <td><input type="submit" value="Edit"></td>
-        <td><input type="submit" value="Delete"></td>
-    </tr>
+<table id="pokemons" style="width:80%">
+<!--    <tr>-->
+<!--        <th>Name</th>-->
+<!--        <th>Description</th>-->
+<!--        <th>Type</th>-->
+<!--        <th>Evolution</th>-->
+<!--        <th></th>-->
+<!--        <th></th>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>Bulbasaur</td>-->
+<!--        <td>The bulb pokemon</td>-->
+<!--        <td>Grass, Poisony</td>-->
+<!--        <td>Ivysaur</td>-->
+<!--        <td><input type="submit" value="Edit"></td>-->
+<!--        <td><input type="submit" value="Delete"></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>Ivysaur</td>-->
+<!--        <td>A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon</td>-->
+<!--        <td>Grass, Poisony</td>-->
+<!--        <td>Venasaur</td>-->
+<!--        <td><input type="submit" value="Edit"></td>-->
+<!--        <td><input type="submit" value="Delete"></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>Venasaur</td>-->
+<!--        <td>Final stage of Bulbasaur</td>-->
+<!--        <td>Grass, Poisony</td>-->
+<!--        <td>None</td>-->
+<!--        <td><input type="submit" value="Edit"></td>-->
+<!--        <td><input type="submit" value="Delete"></td>-->
+<!--    </tr>-->
 </table>
 
 <p><a href="/">Back to Home</a></p>
@@ -75,6 +76,7 @@
             })
             .then(function(myJson) {
             console.log(JSON.stringify(myJson));
+            populateData("pokemons", myJson);
             });
     }
 
