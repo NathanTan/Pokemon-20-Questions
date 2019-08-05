@@ -11,11 +11,13 @@
 <form method="POST" action="/pokemon"> 
     <fieldset>
         <legend>Add or edit a Pokemon</legend>
+        <label>Number: </label><input type="text" name="id">
+        <br/>
         <label>Name: </label><input type="text" name="name">
         <br/>
         <label>Description: </label><input type="text" name="description">
         <br/>
-        <label>Type: </label><select id= "ptypes" name="type"></select>
+        <label>Type: </label><select id= "ptypes" name="ptype"></select>
         <br/>
         <label>Evolution: </label><input type="number" name="evolution">
         <br/>

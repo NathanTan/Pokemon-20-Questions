@@ -96,13 +96,23 @@ app.post('/move', (req, res) => {
 app.post('/pokemon', (req, res) => {
     console.log(req.body)
     let pokemon = req.body
-    pokemon.id = 9999 // TODO: Make this auto increment in the db
+
+    // let user assign pokemon number as id for now.
+    // pokemon.id = 9999 // TODO: Make this auto increment in the db
     pokemon.evolution = null // TODO: fix this
-     
+
+    // TODO: collapse into two writes, one response.
+
     let sql = "insert into pokemon (id, name, evolution, description) values (?, ?, ?, ?)"
-    let inserts = [pokemon.id, pokemon.name, pokemon.evolution, pokemon.description]
+    let inserts = [pokemon.id, pokemon.name,  pokemon.evolution, pokemon.description]
 
     writeData(sql, inserts, './draft/pokemon.html', res)
+
+    //
+    // let typesql = "insert into pokemon_type(pokemon_id, type_id) values (?, ?);"
+    // let typedata = [pokemon.id, pokemon.ptype]
+    //
+    // writeData(typesql, typedata, './draft/pokemon.html', res)
 })
 
 app.post('/trainer', (req, res) => {
