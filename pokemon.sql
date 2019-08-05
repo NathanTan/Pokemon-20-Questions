@@ -228,7 +228,7 @@ INSERT INTO `pokemon_type` VALUES
 (3, 6),
 (4, 3);
 /*!40000 ALTER TABLE `pokemon_type` ENABLE KEYS */;
-# UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 DROP TABLE IF EXISTS `pokemon_trainer`;
