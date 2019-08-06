@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Types</title>
 
+    <script src="/js/fetcher.js"></script>
+    <script src="/js/populate-data.js"></script>
+
     <style>
         .wrapper {
             position: relative;
@@ -96,67 +99,38 @@
     </fieldset>
 </form>
 
-<p><a href="index.html">Back to Home</a></p>
+<form >
+    <fieldset>
+        <legend>Find a Type by name</legend>
+        <label>Name: </label><input type="text" name="name">
+        <br/>
+        <input type="submit" value="Search">
+    </fieldset>
+</form>
+
+<p><a href="/">Back to Home</a></p>
 
 <br/>
 
 <button id="getData">Get Data</button>
 
-<table style="width:80%">
-    <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Type</th>
-        <th>Evolution</th>
-        <th></th>
-        <th></th>
-    </tr>
-    <tr>
-        <td>Bulbasaur</td>
-        <td>The bulb pokemon</td>
-        <td>Grass, Poisony</td>
-        <td>Ivysaur</td>
-        <td><input type="submit" value="Edit"></td>
-        <td><input type="submit" value="Delete"></td>
-    </tr>
-    <tr>
-        <td>Ivysaur</td>
-        <td>A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon</td>
-        <td>Grass, Poisony</td>
-        <td>Venasaur</td>
-        <td><input type="submit" value="Edit"></td>
-        <td><input type="submit" value="Delete"></td>
-    </tr>
-    <tr>
-        <td>Venasaur</td>
-        <td>Final stage of Bulbasaur</td>
-        <td>Grass, Poisony</td>
-        <td>None</td>
-        <td><input type="submit" value="Edit"></td>
-        <td><input type="submit" value="Delete"></td>
-    </tr>
+<table id="types" style="width:80%">
 </table>
 
-<p><a href="index.html">Back to Home</a></p>
+<p><a href="/">Back to Home</a></p>
 
 
 <script>
-    function fetchData() {
-        console.log("using url:", window.location.href)
-        var endpoint = window.location.href + "Data"
-        fetch(endpoint)
-            .then(function(response) {
-            return response.json();
-            })
-            .then(function(myJson) {
-            console.log(JSON.stringify(myJson));
-            });
-    }
 
+    function getTypes() {
+        console.log("using url:", window.location.href)
+        let endpoint = window.location.href + "Data"
+        fetchData(endpoint, data => populateTable("types", data));
+    }
 
     // Set event handlers
     //document.getElementById("submit").addEventListener("click", () => {})
-    document.getElementById("getData").addEventListener("click", fetchData)
+    document.getElementById("getData").addEventListener("click", getTypes)
 </script>
 
 </body>

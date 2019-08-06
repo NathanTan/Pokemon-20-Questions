@@ -181,7 +181,7 @@ DROP TABLE IF EXISTS `pokemon_move`;
 CREATE TABLE `pokemon_move` (
       `pokemon_id` int(11) NOT NULL,
       `move_id` int(11) NOT NULL,
-      PRIMARY KEY (`pokemon_id`, 'move_id'),
+      PRIMARY KEY (`pokemon_id`, `move_id`),
       CONSTRAINT `pm_fk_1` FOREIGN KEY (`pokemon_id`) REFERENCES `pokemon` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
       CONSTRAINT `pm_fk_2` FOREIGN KEY (`move_id`) REFERENCES `move` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
@@ -207,7 +207,7 @@ DROP TABLE IF EXISTS `pokemon_type`;
 CREATE TABLE `pokemon_type` (
       `pokemon_id` int(11) NOT NULL,
       `type_id` int(11) NOT NULL,
-      PRIMARY KEY (`pokemon_id`, 'type_id'),
+      PRIMARY KEY (`pokemon_id`, `type_id`),
       CONSTRAINT `pt_fk_1` FOREIGN KEY (`pokemon_id`) REFERENCES `pokemon` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
       CONSTRAINT `pt_fk_2` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
@@ -228,7 +228,7 @@ INSERT INTO `pokemon_type` VALUES
 (3, 6),
 (4, 3);
 /*!40000 ALTER TABLE `pokemon_type` ENABLE KEYS */;
-# UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 DROP TABLE IF EXISTS `pokemon_trainer`;
@@ -236,7 +236,7 @@ DROP TABLE IF EXISTS `pokemon_trainer`;
 CREATE TABLE `pokemon_trainer` (
       `pokemon_id` int(11) NOT NULL,
       `trainer_id` int(11) NOT NULL,
-      PRIMARY KEY (`pokemon_id`, 'trainer_id'),
+      PRIMARY KEY (`pokemon_id`, `trainer_id`),
       CONSTRAINT `ptr_fk_1` FOREIGN KEY (`pokemon_id`) REFERENCES `pokemon` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
       CONSTRAINT `ptr_fk_2` FOREIGN KEY (`trainer_id`) REFERENCES `trainer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
@@ -261,7 +261,7 @@ DROP TABLE IF EXISTS `trainer_type`;
 CREATE TABLE `trainer_type` (
       `trainer_id` int(11) NOT NULL,
       `type_id` int(11) NOT NULL,
-      PRIMARY KEY (`trainer_id`, 'type_id'),
+      PRIMARY KEY (`trainer_id`, `type_id`),
       CONSTRAINT `tt_fk_1` FOREIGN KEY (`trainer_id`) REFERENCES `trainer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
       CONSTRAINT `tt_fk_2` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
@@ -273,7 +273,7 @@ CREATE TABLE `trainer_type` (
 LOCK TABLES `trainer_type` WRITE;
 /*!40000 ALTER TABLE `trainer_type` DISABLE KEYS */;
 INSERT INTO `trainer_type` VALUES 
-(4, 10)
+(4, 10),
 (5, 3);
 /*!40000 ALTER TABLE `trainer_type` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -291,10 +291,10 @@ CREATE TABLE `type_effect` (
       `type_id1` int(11) NOT NULL,
       `type_id2` int(11) NOT NULL,
       `effect_id` int(11) NOT NULL,
-      PRIMARY KEY (`type_id1`, `type_id2`, 'effect_id'),
-      CONSTRAINT `pm_fk_1` FOREIGN KEY (`type_id1`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-      CONSTRAINT `pm_fk_2` FOREIGN KEY (`type_id2`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-      CONSTRAINT `pm_fk_3` FOREIGN KEY (`effect_id`) REFERENCES `effect` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+      PRIMARY KEY (`type_id1`, `type_id2`, `effect_id`),
+      CONSTRAINT `te_fk_1` FOREIGN KEY (`type_id1`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+      CONSTRAINT `te_fk_2` FOREIGN KEY (`type_id2`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+      CONSTRAINT `te_fk_3` FOREIGN KEY (`effect_id`) REFERENCES `effect` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
 
 
