@@ -121,7 +121,7 @@ app.post('/trainer', (req, res) => {
     console.log(req.body)
     
     let sql = "insert into trainer (id, name) values (?,?)"
-    let inserts = [trainer.id, trainer. name]
+    let inserts = [trainer.id, trainer.name]
 
     writeData(sql, inserts, './draft/trainer.html', res)
 })
@@ -134,6 +134,46 @@ app.post('/type', (req, res) => {
     let insert = [type.name]
 
     writeData(sql, insert, './draft/type.html', res)
+})
+
+/* Puts */
+
+app.put('/move', (req, res) => {
+    console.log(req.body)
+    let move = req.body
+
+    let sql = "UPDATE move SET name=?, power=?, accuracy=? WHERE id=?"
+    let inserts = [move.number, move.name, move.power, move.accuracy]
+    writeData(sql, inserts, './draft/move.html', res)
+})
+
+app.put('/pokemon', (req, res) => {
+    console.log(req.body)
+    let pokemon = req.body
+
+    let sql = "update pokemon set name=?, evolution=?, description=? where id=?"
+    let inserts = [pokemon.id, pokemon.name,  pokemon.evolution, pokemon.description]
+    writeData(sql, inserts, './draft/pokemon.html', res)    
+})
+
+app.put('/trainer', (req, res) => {
+    console.log(req.body)
+    let trainer = req.body
+
+    let sql = "update trainer set name=? where id=?"
+    let inserts = [trainer.id, trainer.name]
+
+    writeData(sql, inserts, './draft/trainer.html', res)
+})
+
+app.put('/type', (req, res) => {
+    console.log(req.body)
+    let type = req.body
+
+    let sql = "update type set name=? where id=?"
+    let inserts = [type.name, type.id]
+
+    writeData(sql, inserts, './draft/type.html', res)    
 })
 
 app.use('*', function (req, res, next) {
