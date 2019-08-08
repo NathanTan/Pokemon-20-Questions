@@ -191,32 +191,24 @@ app.put('/type', (req, res) => {
 })
 
 /* deletes */
-app.delete('/move', (req, res) => {
-    console.log(req.body)
-    let move = req.body
-
-    deleteData('move', move.id, './draft/move.html', res)
+app.delete('/move/:id', (req, res) => {
+    console.log(`Deleting move ${req.params.id}`)
+    deleteData('move', req.params.id, './draft/move.html', res)
 })
 
-app.delete('/pokemon', (req, res) => {
-    console.log(req.body)
-    let pokemon = req.body
-
-    deleteData('pokemon', move.id, './draft/pokemon.html', res)
+app.delete('/pokemon/:id', (req, res) => {
+    console.log(`Deleting pokemon ${req.params.id}`)
+    deleteData('pokemon', req.params.id, './draft/pokemon.html', res)
 })
 
-app.delete('/trainer', (req, res) => {
-    console.log(req.body)
-    let trainer = req.body
-
-    deleteData('trainer', move.id, './draft/trainer.html', res)
+app.delete('/trainer/:id', (req, res) => {
+    console.log(`Deleting trainer ${req.params.id}`)
+    deleteData('trainer', req.params.id, './draft/trainer.html', res)
 })
 
-app.delete('/type', (req, res) => {
-    console.log(req.body)
-    let move = req.body
-
-    deleteData('type', move.id, './draft/type.html', res)
+app.delete('/type/:id', (req, res) => {
+    console.log(`Deleting type ${req.params.id}`)
+    deleteData('type', req.params.id, './draft/type.html', res)
 })
 
 

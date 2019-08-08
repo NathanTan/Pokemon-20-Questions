@@ -45,7 +45,13 @@ function populateTable(tableName, dbData) {
         let edit = tr.insertCell(-1);
         edit.appendChild(editButton);
 
-        let deleteButton = createButton('delete_btn', 'Delete', (function(blah) {}));
+        let deleteButton = createButton('delete_btn', 'Delete', (
+            function() {
+                    fetch(window.location.href + '/' + dbData[i].id, {
+                    method: 'delete'
+                }).then(response => response.json())
+            })
+        );
         let del = tr.insertCell(-1);
         del.appendChild(deleteButton);
     }
