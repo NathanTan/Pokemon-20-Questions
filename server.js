@@ -34,6 +34,20 @@ function writeData(sql, inserts, returnUrl, res) {
     })
 }
 
+function deleteData(tableName, id, returnUrl, res) {
+    let sql = `delete from ${tableName} where id=?`
+    let inserts = [id]
+    let result = pool.query(sql, inserts, function(error, results, fields) {
+        if (error){
+            console.log(JSON.stringify(error))
+            res.write(JSON.stringify(error))
+            res.end()
+        }
+        else {
+            res.status(200).sendFile(returnUrl, {root: __dirname })
+        }
+    })
+}
 
 
 
@@ -175,6 +189,36 @@ app.put('/type', (req, res) => {
 
     writeData(sql, inserts, './draft/type.html', res)    
 })
+
+/* deletes */
+app.delete('/move', (req, res) => {
+    console.log(req.body)
+    let move = req.body
+
+    deleteData('move', move.id, './draft/move.html', res)
+})
+
+app.delete('/pokemon', (req, res) => {
+    console.log(req.body)
+    let pokemon = req.body
+
+    deleteData('pokemon', move.id, './draft/pokemon.html', res)
+})
+
+app.delete('/trainer', (req, res) => {
+    console.log(req.body)
+    let trainer = req.body
+
+    deleteData('trainer', move.id, './draft/trainer.html', res)
+})
+
+app.delete('/type', (req, res) => {
+    console.log(req.body)
+    let move = req.body
+
+    deleteData('type', move.id, './draft/type.html', res)
+})
+
 
 app.use('*', function (req, res, next) {
     res.status(404).json({
