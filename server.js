@@ -34,6 +34,20 @@ function writeData(sql, inserts, returnUrl, res) {
     })
 }
 
+function deleteData(tableName, id, returnUrl, res) {
+    let sql = `delete from ${tableName} where id=?`
+    let inserts = [id]
+    let result = pool.query(sql, inserts, function(error, results, fields) {
+        if (error){
+            console.log(JSON.stringify(error))
+            res.write(JSON.stringify(error))
+            res.end()
+        }
+        else {
+            res.status(200).sendFile(returnUrl, {root: __dirname })
+        }
+    })
+}
 
 
 
@@ -121,7 +135,7 @@ app.post('/trainer', (req, res) => {
     console.log(req.body)
     
     let sql = "insert into trainer (id, name) values (?,?)"
-    let inserts = [trainer.id, trainer. name]
+    let inserts = [trainer.id, trainer.name]
 
     writeData(sql, inserts, './draft/trainer.html', res)
 })
@@ -135,6 +149,68 @@ app.post('/type', (req, res) => {
 
     writeData(sql, insert, './draft/type.html', res)
 })
+
+/* Puts */
+
+app.put('/move', (req, res) => {
+    console.log(req.body)
+    let move = req.body
+
+    let sql = "UPDATE move SET name=?, power=?, accuracy=? WHERE id=?"
+    let inserts = [move.number, move.name, move.power, move.accuracy]
+    writeData(sql, inserts, './draft/move.html', res)
+})
+
+app.put('/pokemon', (req, res) => {
+    console.log(req.body)
+    let pokemon = req.body
+
+    let sql = "update pokemon set name=?, evolution=?, description=? where id=?"
+    let inserts = [pokemon.id, pokemon.name,  pokemon.evolution, pokemon.description]
+    writeData(sql, inserts, './draft/pokemon.html', res)    
+})
+
+app.put('/trainer', (req, res) => {
+    console.log(req.body)
+    let trainer = req.body
+
+    let sql = "update trainer set name=? where id=?"
+    let inserts = [trainer.id, trainer.name]
+
+    writeData(sql, inserts, './draft/trainer.html', res)
+})
+
+app.put('/type', (req, res) => {
+    console.log(req.body)
+    let type = req.body
+
+    let sql = "update type set name=? where id=?"
+    let inserts = [type.name, type.id]
+
+    writeData(sql, inserts, './draft/type.html', res)    
+})
+
+/* deletes */
+app.delete('/move/:id', (req, res) => {
+    console.log(`Deleting move ${req.params.id}`)
+    deleteData('move', req.params.id, './draft/move.html', res)
+})
+
+app.delete('/pokemon/:id', (req, res) => {
+    console.log(`Deleting pokemon ${req.params.id}`)
+    deleteData('pokemon', req.params.id, './draft/pokemon.html', res)
+})
+
+app.delete('/trainer/:id', (req, res) => {
+    console.log(`Deleting trainer ${req.params.id}`)
+    deleteData('trainer', req.params.id, './draft/trainer.html', res)
+})
+
+app.delete('/type/:id', (req, res) => {
+    console.log(`Deleting type ${req.params.id}`)
+    deleteData('type', req.params.id, './draft/type.html', res)
+})
+
 
 app.use('*', function (req, res, next) {
     res.status(404).json({
