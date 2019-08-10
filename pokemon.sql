@@ -26,7 +26,8 @@ CREATE TABLE `pokemon` (
       `name` varchar(255) DEFAULT NULL,
       `evolution` int(11) DEFAULT NULL,
       `description` varchar(255) DEFAULT NULL,
-      PRIMARY KEY (`id`)
+      PRIMARY KEY (`id`),
+      CONSTRAINT `pe_fk` FOREIGN KEY (`evolution`) REFERENCES `pokemon` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
