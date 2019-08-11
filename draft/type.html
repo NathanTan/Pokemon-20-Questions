@@ -4,90 +4,108 @@
     <meta charset="UTF-8">
     <title>Types</title>
 
-    <link rel="stylesheet" href="/css/global.css">
+    <link href="/css/global.css" rel="stylesheet">
 
     <script src="/js/fetcher.js"></script>
     <script src="/js/populate-data.js"></script>
 </head>
 <body>
 
-<form method="POST" action="/type">
+<form action="/type" method="POST">
     <fieldset>
         <legend>Add or edit a Type</legend>
-        <label>Name: <input type="text" name="name"></label>
+        <label>Name: <input name="name" type="text"></label>
         <br/>
         <label>Drag from the available types to the appropriate effect for the current type.</label>
         <br/>
+        <div>
             <div class="wrapper">
                 <div class="inner">
-                    <label>Available types:</label>
+                    <label>Very effective against:</label>
                 </div>
                 <div class="inner">
                     <label>
-                        <select multiple="multiple" name="types">
-                            <option>Bulbasaur</option>
-                            <option>Ivysaur</option>
-                            <option>Venasaur</option>
-                            <option>Squirtle</option>
-                            <option>Geodude</option>
-                            <option>Graveler</option>
-                            <option>Onix</option>
-                            <option>Steelix</option>
+                        <select multiple="multiple" name="types1">
                         </select>
                     </label>
                 </div>
             </div>
+            <div class="wrapper">
+                <div>&nbsp;</div>
+                <div class="inner">
+                    <input type="submit" value="->">
+                </div>
+                <div class="inner">
+                    <input type="submit" value="<-">
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
             <div class="inner">
-                <label>Very effective against:</label>
+                <label>Available types:</label>
             </div>
             <div class="inner">
                 <label>
-                    <select multiple="multiple" name="types">
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
+                    <select id="available" multiple="multiple" name="atypes">
                     </select>
                 </label>
             </div>
-            <div class="inner">
-                <label>Weak against:</label>
+        </div>
+        <div class="flush-left">
+            <div class="wrapper">
+                <div class="inner">
+                    <label>Weak against:</label>
+                </div>
+                <div class="inner">
+                    <label>
+                        <select multiple="multiple" name="types1">
+                        </select>
+                    </label>
+                </div>
             </div>
-            <div class="inner">
-                <label>
-                    <select multiple="multiple" name="types">
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                    </select>
-                </label>
+            <div class="wrapper">
+                <div>&nbsp;</div>
+                <div class="inner">
+                    <input type="submit" value="->">
+                </div>
+                <div class="inner">
+                    <input type="submit" value="<-">
+                </div>
             </div>
-            <div class="inner">
-                <label>Does not affect:</label>
+        </div>
+        <div class="flush-left">
+            <div class="wrapper">
+                <div class="inner">
+                    <label>Does not affect:</label>
+                </div>
+                <div class="inner">
+                    <label>
+                        <select multiple="multiple" name="types1">
+                        </select>
+                    </label>
+                </div>
             </div>
-            <div class="inner">
-                <label>
-                    <select multiple="multiple" name="types">
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                    </select>
-                </label>
+            <div class="wrapper">
+                <div>&nbsp;</div>
+                <div class="inner">
+                    <input type="submit" value="->">
+                </div>
+                <div class="inner">
+                    <input type="submit" value="<-">
+                </div>
             </div>
-    <br/>
-        <input style="clear: both" type="submit" value="Save">
+        </div>
+        <br/>
+        <div class="flush-left">
+            <input style="clear: both" type="submit" value="Save">
+        </div>
     </fieldset>
 </form>
 
-<form >
+<form>
     <fieldset>
         <legend>Find a Type by name</legend>
-        <label>Name: </label><input type="text" name="name">
+        <label>Name: <input name="name" type="text"></label>
         <br/>
         <input type="submit" value="Search">
     </fieldset>
@@ -106,6 +124,9 @@
 
 
 <script>
+    window.onload = function () {
+        getLookupTypes();
+    };
 
     function getTypes() {
         console.log("using url:", window.location.href);
@@ -117,8 +138,11 @@
         fetchData(endpoint, data => populateTable("types", data, columnMapping));
     }
 
-    // Set event handlers
-    //document.getElementById("submit").addEventListener("click", () => {})
+    function getLookupTypes() {
+        let endpoint = window.location.origin + "/typeData";
+        fetchData(endpoint, data => populateSelect("available", data));
+    }
+
     document.getElementById("getData").addEventListener("click", getTypes)
 </script>
 

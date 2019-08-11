@@ -16,7 +16,7 @@
 <form method="POST" action="/trainer">
     <fieldset>
         <legend>Add or edit a Trainer</legend>
-        <label>Name: </label><input type="text" name="name">
+        <label>Name:<input type="text" name="name"> </label>
         <br/>
         <label>Type: <select id="ttypes" name="type"></select></label>
         <br/>
@@ -72,7 +72,7 @@
 <form >
     <fieldset>
         <legend>Find a Trainer by name</legend>
-        <label>Name: </label><input type="text" name="name">
+        <label>Name: <input type="text" name="name"></label>
         <br/>
         <input type="submit" value="Search">
     </fieldset>
@@ -106,7 +106,7 @@
     }
 
     function getTypes() {
-        let endpoint = window.location.origin + "/typeData"
+        let endpoint = window.location.origin + "/typeData";
         fetchData(endpoint, data => populateSelect("ttypes", data));
     }
 
