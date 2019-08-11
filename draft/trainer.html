@@ -8,6 +8,7 @@
 
     <script src="/js/fetcher.js"></script>
     <script src="/js/populate-data.js"></script>
+    <script src="/js/item-mover.js"></script>
 </head>
 <body>
 
@@ -26,12 +27,7 @@
             </div>
             <div class="inner">
                 <label>
-                    <select multiple="multiple" name="types">
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
+                    <select id="owned" multiple="multiple" name="types">
                     </select>
                 </label>
             </div>
@@ -39,10 +35,10 @@
         <div class="wrapper">
             <div>&nbsp;</div>
             <div>
-                <input type="submit" value="->">
+                <input id="owned-to-available" type="button" value="->">
             </div>
             <div>
-                <input type="submit" value="<-">
+                <input id="available-to-owned" type="button" value="<-">
             </div>
         </div>
         <div class="wrapper">
@@ -51,25 +47,19 @@
             </div>
             <div class="inner">
                 <label>
-                    <select multiple="multiple" name="types">
-                        <option>Bulbasaur</option>
-                        <option>Ivysaur</option>
-                        <option>Venasaur</option>
-                        <option>Squirtle</option>
-                        <option>Geodude</option>
-                        <option>Graveler</option>
-                        <option>Onix</option>
-                        <option>Steelix</option>
+                    <select id="available" multiple="multiple" name="types">
                     </select>
                 </label>
             </div>
         </div>
         <br/>
-        <input style="clear: both" type="submit" value="Save">
+        <div class="flush-left">
+            <input style="clear: both" type="submit" value="Save">
+        </div>
     </fieldset>
 </form>
 
-<form >
+<form>
     <fieldset>
         <legend>Find a Trainer by name</legend>
         <label>Name: <input type="text" name="name"></label>
@@ -93,6 +83,7 @@
 <script>
     window.onload = function () {
         getTypes();
+        getPokemons();
     };
 
     function getTrainers() {
@@ -110,25 +101,17 @@
         fetchData(endpoint, data => populateSelect("ttypes", data));
     }
 
-    // function fetchData() {
-    //     console.log("using url:", window.location.href)
-    //     var endpoint = window.location.href + "Data"
-    //     fetch(endpoint)
-    //         .then(function(response) {
-    //         return response.json();
-    //         })
-    //         .then(function(myJson) {
-    //         console.log(JSON.stringify(myJson));
-    //         populateData("trainers", myJson);
-    //         });
-    // }
-    //
+    function getPokemons() {
+        let endpoint = window.location.origin + "/pokemonData";
+        fetchData(endpoint, data => populateSelect("available", data));
+    }
 
     // Set event handlers
-    //document.getElementById("submit").addEventListener("click", () => {})
     document.getElementById("getData").addEventListener("click", getTrainers)
-</script>
 
+    document.getElementById("owned-to-available").addEventListener("click", () => moveSelected("owned", "available"));
+    document.getElementById("available-to-owned").addEventListener("click", () => moveSelected("available", "owned"));
+</script>
 
 
 </body>
