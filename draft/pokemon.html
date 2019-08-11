@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Pokemons</title>
+
+    <link rel="stylesheet" href="/css/global.css">
+
     <script src="/js/fetcher.js"></script>
     <script src="/js/populate-data.js"></script>
 </head>
@@ -52,19 +55,25 @@
     };
 
     function getPokemons() {
-        console.log("using url:", window.location.href)
-        let endpoint = window.location.href + "Data"
-        fetchData(endpoint, data => populateTable("pokemons", data));
+        console.log("using url:", window.location.href);
+        let endpoint = window.location.href + "Data";
+        let columnMapping = {
+            "id": {"alias": "Number"},
+            "name": {"alias": "Name"},
+            "evolution": {"alias": "Evolution"},
+            "description": {"alias": "Description"}
+        };
+        fetchData(endpoint, data => populateTable("pokemons", data, columnMapping));
     }
 
     function getTypes() {
-        let endpoint = window.location.origin + "/typeData"
+        let endpoint = window.location.origin + "/typeData";
         fetchData(endpoint, data => populateSelect("ptypes", data));
     }
 
     // Set event handlers
     //document.getElementById("submit").addEventListener("click", () => {})
-    document.getElementById("getData").addEventListener("click", getPokemons)
+    document.getElementById("getData").addEventListener("click", getPokemons);
 </script>
 
 

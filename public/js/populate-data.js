@@ -13,8 +13,8 @@ function createButton(classname, legend, action) {
     return editButton;
 }
 
-function populateTable(tableName, dbData) {
-    // if (dbData.length <= 0)  return;
+function populateTable(tableName, dbData, columnMapping) {
+    if (dbData.length <= 0)  return;
 
     let col = [];
     for (let key in dbData[0]) {
@@ -24,11 +24,18 @@ function populateTable(tableName, dbData) {
     }
 
     let table = document.getElementById(tableName);
+    table.innerHTML = "";
     let tr = table.insertRow(-1);
 
     for (let i = 0; i < col.length; i++) {
         let th = document.createElement("th");
         th.innerHTML = col[i];
+        if (col[i] in columnMapping) {
+            th.innerHTML = columnMapping[col[i]].alias;
+            if ("visible" in columnMapping[col[i]] && !columnMapping[col[i]].visible) {
+                th.classList.add("hidden");
+            }
+        }
         tr.appendChild(th);
     }
 
@@ -38,6 +45,11 @@ function populateTable(tableName, dbData) {
 
         for (let j = 0; j < col.length; j++) {
             let tabCell = tr.insertCell(-1);
+            if (col[j] in columnMapping) {
+                if ("visible" in columnMapping[col[j]] && !columnMapping[col[j]].visible) {
+                    tabCell.classList.add("hidden");
+                }
+            }
             tabCell.innerHTML = dbData[i][col[j]];
         }
 

@@ -3,26 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Trainers</title>
+
+    <link rel="stylesheet" href="/css/global.css">
+
     <script src="/js/fetcher.js"></script>
     <script src="/js/populate-data.js"></script>
-
-    <style>
-        .wrapper {
-            position: relative;
-            float: left;
-            margin-right: 2em;
-            /*clear: none;*/
-        }
-
-        .inner {
-            width: 200px;
-        }
-
-        .inner select {
-            width: 100%;
-        }
-    </style>
-
 </head>
 <body>
 
@@ -111,9 +96,13 @@
     };
 
     function getTrainers() {
-        console.log("using url:", window.location.href)
-        let endpoint = window.location.href + "Data"
-        fetchData(endpoint, data => populateTable("trainers", data));
+        console.log("using url:", window.location.href);
+        let endpoint = window.location.href + "Data";
+        let columnMapping = {
+            "id": {"alias": "Number", "visible": false},
+            "name": {"alias": "Name"},
+        };
+        fetchData(endpoint, data => populateTable("trainers", data, columnMapping));
     }
 
     function getTypes() {
