@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Trainers</title>
+    <script src="/js/fetcher.js"></script>
+    <script src="/js/populate-data.js"></script>
 
     <style>
         .wrapper {
@@ -31,16 +33,11 @@
         <legend>Add or edit a Trainer</legend>
         <label>Name: </label><input type="text" name="name">
         <br/>
-        <label>Type: <select name="type">
-            <option>Rock</option>
-            <option>Water</option>
-            <option>Flying</option>
-            <option>Grass</option>
-        </select></label>
+        <label>Type: <select id="ttypes" name="type"></select></label>
         <br/>
         <div class="wrapper">
             <div class="inner">
-                <label>Pokemon Team:</label>
+                <label>Pokemons owned:</label>
             </div>
             <div class="inner">
                 <label>
@@ -65,7 +62,7 @@
         </div>
         <div class="wrapper">
             <div class="inner">
-                <label>Available:</label>
+                <label>Available pokemons:</label>
             </div>
             <div class="inner">
                 <label>
@@ -87,37 +84,63 @@
     </fieldset>
 </form>
 
-<p><a href="index.html">Back to Home</a></p>
+<form >
+    <fieldset>
+        <legend>Find a Trainer by name</legend>
+        <label>Name: </label><input type="text" name="name">
+        <br/>
+        <input type="submit" value="Search">
+    </fieldset>
+</form>
+
+
+<p><a href="/">Back to Home</a></p>
 
 <br/>
 
 <button id="getData">Get Data</button>
 
-<table style="width:80%">
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Pokemon Team</th>
-        <th></th>
-        <th></th>
-    </tr>
-    <tr>
-        <td>Brock</td>
-        <td>Rock</td>
-        <td>Geodude, Graveler</td>
-        <td><input type="submit" value="Edit"></td>
-        <td><input type="submit" value="Delete"></td>
-    </tr>
-    <tr>
-        <td>Misty</td>
-        <td>Water</td>
-        <td>None</td>
-        <td><input type="submit" value="Edit"></td>
-        <td><input type="submit" value="Delete"></td>
-    </tr>
+<table id="trainers" style="width:80%">
 </table>
 
-<p><a href="index.html">Back to Home</a></p>
+<p><a href="/">Back to Home</a></p>
+
+<script>
+    window.onload = function () {
+        getTypes();
+    };
+
+    function getTrainers() {
+        console.log("using url:", window.location.href)
+        let endpoint = window.location.href + "Data"
+        fetchData(endpoint, data => populateTable("trainers", data));
+    }
+
+    function getTypes() {
+        let endpoint = window.location.origin + "/typeData"
+        fetchData(endpoint, data => populateSelect("ttypes", data));
+    }
+
+    // function fetchData() {
+    //     console.log("using url:", window.location.href)
+    //     var endpoint = window.location.href + "Data"
+    //     fetch(endpoint)
+    //         .then(function(response) {
+    //         return response.json();
+    //         })
+    //         .then(function(myJson) {
+    //         console.log(JSON.stringify(myJson));
+    //         populateData("trainers", myJson);
+    //         });
+    // }
+    //
+
+    // Set event handlers
+    //document.getElementById("submit").addEventListener("click", () => {})
+    document.getElementById("getData").addEventListener("click", getTrainers)
+</script>
+
+
 
 <script>
     function fetchData() {
