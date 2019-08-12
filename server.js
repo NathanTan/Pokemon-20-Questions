@@ -2,7 +2,7 @@ const path = require('path')
 const express = require('express')
 
 const app = express()
-const { getAllPokemons } = require('./db/pokemon')
+const { getAllPokemons, getPokemonByName } = require('./db/pokemon')
 const { getAllTrainers } = require('./db/trainer')
 const { getAllTypes } = require('./db/type')
 const { getAllMoves } = require('./db/move')
@@ -74,22 +74,34 @@ app.get('/', (req, res, next) => {
 })
 
 /* READs */
+/*********** Moves   ************/
 app.get('/moveData', (req, res) => {
     console.log(req.body)
     let move = req.body
     getAllMoves(res, pool, null, null)
 })
 
+/*********** Pokemon ***********/
+
 app.get('/pokemonData', (req, res) => {
     let context = {}
     getAllPokemons(res, pool, context, null)
 })
 
+// Get Pokemon By Name
+app.get('/pokemon/:name', (req, res) => {
+    let context = {}
+    getPokemonByName(res, pool, context, null, req.params.name)
+})
+
+
+/*********** Trainer ***********/
 app.get('/trainerData', (req, res) => {
     let trainer = req.body
     getAllTrainers(res, pool, null, null)
 })
 
+/*********** Types   ***********/
 app.get('/typeData', (req, res) => {
     let type = req.body
     getAllTypes(res, pool, null, null)
