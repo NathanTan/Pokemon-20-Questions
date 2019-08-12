@@ -22,7 +22,7 @@
         <br/>
         <label>Type: <select id= "ptypes" name="ptype"></select></label>
         <br/>
-        <label>Evolution: <input type="number" name="evolution"></label>
+        <label>Evolution: <select id="evolutions" name="evolution"></select></label>
         <br/>
         <input type="submit" value="Save">
     </fieldset>
@@ -52,10 +52,10 @@
 <script>
     window.onload = function () {
         getTypes();
+        getEvolutions();
     };
 
     function getPokemons() {
-        console.log("using url:", window.location.href);
         let endpoint = window.location.href + "Data";
         let columnMapping = {
             "id": {"alias": "Number"},
@@ -69,6 +69,16 @@
     function getTypes() {
         let endpoint = window.location.origin + "/typeData";
         fetchData(endpoint, data => populateSelect("ptypes", data));
+    }
+
+    function getEvolutions() {
+        let endpoint = window.location.href + "Data";
+        fetchData(endpoint, data => populateSelect("evolutions", data));
+
+        let none = document.createElement('option');
+        none.value = null;
+        none.innerHTML = "None";
+        document.getElementById("evolutions").add(none, 0);
     }
 
     // Set event handlers

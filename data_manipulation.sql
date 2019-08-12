@@ -62,6 +62,11 @@ select te.type_id2, t.name, te.effect_id, e.name from type_effect te
     where te.type_id1 = :id;
 
 
+-- Get available evolution candidates
+select p.id, p.name from pokemon p
+where p.id not in
+      (select pe.evolution from pokemon pe  where pe.evolution is not null);
+
 
 -- Add new Pokemon
 insert into pokemon values (:id, :pokemon_name, :evolution_id, :description);
