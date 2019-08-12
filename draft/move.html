@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Moves</title>
+
+    <link rel="stylesheet" href="/css/global.css">
+
     <script src="/js/fetcher.js"></script>
     <script src="/js/populate-data.js"></script>
 </head>
@@ -14,15 +17,15 @@
 <form method="POST" action="/move">
     <fieldset>
         <legend>Add or edit a Move</legend>
-        <label>Number: </label><input type="text" name="id">
+        <label>Number: <input type="text" name="id"></label>
         <br/>
-        <label>Name: </label><input type="text" name="name">
+        <label>Name: <input type="text" name="name"></label>
         <br/>
         <label>Type: <select id="mtypes"></select></label>
         <br/>
-        <label>Power: </label><input type="text" name="power">
+        <label>Power: <input type="text" name="power"></label>
         <br/>
-        <label>Accuracy: </label><input type="text" name="accuracy">
+        <label>Accuracy: <input type="text" name="accuracy"></label>
         <br/>
         <input type="submit" value="submit" id="submit">
     </fieldset>
@@ -31,7 +34,7 @@
 <form >
     <fieldset>
         <legend>Find a Move by name</legend>
-        <label>Name: </label><input type="text" name="name">
+        <label>Name: <input type="text" name="name"></label>
         <br/>
         <input type="submit" value="Search">
     </fieldset>
@@ -55,13 +58,20 @@
     };
 
     function getMoves() {
-        console.log("using url:", window.location.href)
-        let endpoint = window.location.href + "Data"
-        fetchData(endpoint, data => populateTable("moves", data));
+        console.log("using url:", window.location.href);
+        let endpoint = window.location.href + "Data";
+        let columnMapping = {
+            "id": {"alias": "Number"},
+            "name": {"alias": "Name"},
+            "power": {"alias": "Power"},
+            "accuracy": {"alias": "Accuracy"},
+            "type": {"alias": "Type"}
+        };
+        fetchData(endpoint, data => populateTable("moves", data, columnMapping));
     }
 
     function getTypes() {
-        let endpoint = window.location.origin + "/typeData"
+        let endpoint = window.location.origin + "/typeData";
         fetchData(endpoint, data => populateSelect("mtypes", data));
     }
 

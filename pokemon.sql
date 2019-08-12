@@ -26,7 +26,8 @@ CREATE TABLE `pokemon` (
       `name` varchar(255) DEFAULT NULL,
       `evolution` int(11) DEFAULT NULL,
       `description` varchar(255) DEFAULT NULL,
-      PRIMARY KEY (`id`)
+      PRIMARY KEY (`id`),
+      CONSTRAINT `pe_fk` FOREIGN KEY (`evolution`) REFERENCES `pokemon` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
@@ -45,34 +46,6 @@ INSERT INTO `pokemon` VALUES
 (95, 'Onix', 208, 'As it grows, the stone portions of its body harden to become similar to a diamond, but colored black.'),
 (208, 'Steelix', NULL, 'Its body has been compressed deep under the ground. As a result, it is even harder than a diamond.');
 /*!40000 ALTER TABLE `pokemon` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `move`
---
-
-DROP TABLE IF EXISTS `move`;
-
-CREATE TABLE `move` (
-      `id` int(11) NOT NULL DEFAULT '0',
-      `name` varchar(255) NOT NULL,
-      `power` int(11) DEFAULT NULL,
-      `accuracy` int(11) DEFAULT NULL,
-      PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `moves`
---
-
-LOCK TABLES `move` WRITE;
-/*!40000 ALTER TABLE `move` ENABLE KEYS */;
-INSERT INTO `move` VALUES
-(1, 'Pound', 40, 100),
-(12, 'Guillotine', NULL, NULL),
-(33, 'Tackle', 40, 100),
-(63, 'Hyper Beam', 150, 90),
-(742, 'Double Iron Bash', 60, 100);
 UNLOCK TABLES;
 
 --
@@ -116,6 +89,36 @@ INSERT INTO `type` VALUES
 /*!40000 ALTER TABLE `type` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+--
+-- Table structure for table `move`
+--
+
+DROP TABLE IF EXISTS `move`;
+
+CREATE TABLE `move` (
+      `id` int(11) NOT NULL DEFAULT '0',
+      `name` varchar(255) NOT NULL,
+      `power` int(11) DEFAULT NULL,
+      `accuracy` int(11) DEFAULT NULL,
+      `type` int(11) NOT NULL,
+      PRIMARY KEY (`id`),
+      CONSTRAINT `mt_fk` FOREIGN KEY (`type`) REFERENCES `type` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `moves`
+--
+
+LOCK TABLES `move` WRITE;
+/*!40000 ALTER TABLE `move` ENABLE KEYS */;
+INSERT INTO `move` VALUES
+(1, 'Pound', 40, 100, 0),
+(12, 'Guillotine', NULL, NULL, 0),
+(33, 'Tackle', 40, 100, 0),
+(63, 'Hyper Beam', 150, 90, 0),
+(742, 'Double Iron Bash', 60, 100, 16);
+UNLOCK TABLES;
 
 --
 -- Table structure for table `trainer`

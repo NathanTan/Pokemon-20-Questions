@@ -1,0 +1,192 @@
+/*************************************/
+/**  DATA SHAPES                    **/
+/*************************************/
+// All pokemons query
+[
+    {
+        "id": 1,
+        "name": "Pokemon1",
+        "description": "The bulb pokemon",
+        "evolution:": "Pokemon2"
+    },
+    {
+        "id": 2,
+        "name": "Pokemon2",
+        "description": "The bulb pokemon",
+        "evolution:": "Pokemon3"
+    },
+    {
+        "id": 3,
+        "name": "Pokemon3",
+        "description": "The bulb pokemon",
+        "evolution:": null
+    }
+]
+
+// Single pokemon query
+{
+    "id": 123,
+    "name": "Bulbasaur",
+    "description": "The bulb pokemon",
+    "evolution:": {
+        "id": 123,
+        "name": "Ivysaur"
+    },
+    "types": [
+        {
+            "id": 5,
+            "name": "Grass"
+        },
+        {
+            "id": 6,
+            "name": "Poison "
+        }
+    ]
+}
+
+
+// All moves query
+[
+    {
+        "id": 1,
+        "name": "Move1",
+        "power": 40,
+        "accuracy": 100,
+        "type": "Normal"
+    },
+    {
+        "id": 2,
+        "name": "Move2",
+        "power": 40,
+        "accuracy": 100,
+        "type": "Normal"
+    },
+    {
+        "id": 3,
+        "name": "Move3",
+        "power": 40,
+        "accuracy": 100,
+        "type": "Normal"
+    }
+]
+
+// Single move query
+{
+    "id": 1,
+    "name": "Pound",
+    "power": 40,
+    "accuracy": 100,
+    "type:": {
+        "id": 0,
+        "name": "Normal"
+    }
+}
+
+
+// All types query
+[
+    {
+        "id": 1,
+        "name": "Type1",
+    },
+    {
+        "id": 2,
+        "name": "Type2",
+    },
+    {
+        "id": 3,
+        "name": "Type3",
+    }
+]
+
+// Single type query
+{
+    "id": 123,
+    "name": "Type10",
+    "effects": [
+        {
+            "id": 1,
+            "name": "Not Very Effective",
+            "types": [
+                {
+                    "id": 1,
+                    "name": "Type1"
+                },
+                {
+                    "id": 2,
+                    "name": "Type2"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Super Effective",
+            "types": [
+                {
+                    "id": 3,
+                    "name": "Type3"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Does Not Effect",
+            "types": []
+        }
+    ]
+}
+
+
+// All trainers query
+// "types" is the count of types for each trainer,
+// "pokemon" is the number of pokemon each trainer has.
+[
+    {
+        "id": 1,
+        "name": "Trainer1",
+        "types": 0,
+        "pokemon": 2
+    },
+    {
+        "id": 2,
+        "name": "Trainer2",
+        "types": 2,
+        "pokemon": 5
+    },
+    {
+        "id": 3,
+        "name": "Trainer3",
+        "types": 1,
+        "pokemon": 1
+    }
+]
+
+// Single trainer query
+{
+    "id": 123,
+    "name": "Ash",
+    "types": [
+        {
+            "id": 5,
+            "name": "Grass"
+        },
+        {
+            "id": 6,
+            "name": "Poison "
+        }
+    ],
+    "pokemon": [
+        {
+            "id": 1,
+            "name": "Pokemon1",
+        },
+        {
+            "id": 2,
+            "name": "Pokemon2",
+        },
+        {
+            "id": 3,
+            "name": "Pokemon3",
+        }
+    ]
+}

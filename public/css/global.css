@@ -1,0 +1,22 @@
+.wrapper {
+    position: relative;
+    float: left;
+    margin-right: 2em;
+    /*clear: none;*/
+}
+
+.inner {
+    width: 200px;
+}
+
+.inner select {
+    width: 100%;
+}
+
+.flush-left {
+    clear: both;
+}
+
+.hidden {
+    display: none;
+}

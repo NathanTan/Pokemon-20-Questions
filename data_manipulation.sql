@@ -2,6 +2,29 @@
 -- Get all Pokemon names
 select name from pokemon;
 
+-- Select all pokemon, and their evolution
+select p.id, p.name, p.description, e.id as eid, e.name as ename from pokemon p
+    join pokemon e on e.id=p.evolution;
+
+-- Search pokemon by name
+select p.id, p.name, p.description,  e.id as eid, e.name as ename from pokemon p
+    join pokemon e on e.id=p.evolution
+    where p.name like :pokemon_name;
+
+-- Get types for pokemon
+select t.id, t.name from pokemon_type pt
+    join type t on pt.type_id = t.id
+    where pt.pokemon_id = :pokemin_id;
+
+-- Select all the moves and their type
+select m.id, m.name, m.power, m.accuracy, t.id, t.name from move m
+    join type t on m.type = t.id;
+
+-- Search move by name
+select m.id, m.name, m.power, m.accuracy, t.id, t.name from move m
+    join type t on m.type = t.id
+    where m.name like :move_name;
+
 -- Get all Pokemon that can learn a specific move
 select * from pokemon p
     left join pokemon_move pm on p.id = pm.pokemon_id
@@ -27,6 +50,11 @@ select t.id, t.name from pokemon_type pt
     join type t on pt.type_id = t.id
     where pt.pokemon_id = :id;
 
+
+-- Get all types
+select t.id, t.name from type t;
+
+
 -- Retrieve effects of a specific type on other types.
 select te.type_id2, t.name, te.effect_id, e.name from type_effect te
     join effect e on te.effect_id = e.id
@@ -42,19 +70,19 @@ insert into pokemon values (:id, :pokemon_name, :evolution_id, :description);
 delete from pokemon where id = :id;
 
 -- Add new Type
-insert into type values (:name);
+insert into type (name) values (:name);
 
 -- Delete a Type
 delete from type where id = :id;
 
 -- Add new Move
-insert into move values (:id, :name, :power, :accuracy);
+insert into move values (:id, :name, :power, :accuracy, :type_id);
 
 -- Delete a move
 delete from move where id = :id;
 
 -- Add new Trainer
-insert into trainer values (:name);
+insert into trainer (name) values (:name);
 
 -- Delete a Trainer
 delete from trainer where id = :id;
@@ -63,7 +91,7 @@ delete from trainer where id = :id;
 insert into pokemon_move values (:pokemon_id, :move_id);
 
 -- Delete a Pokemon Move
-delete from trainer where pokemon_id = :pokemon_id;
+delete from pokemon_move where pokemon_id = :pokemon_id;
 
 -- Add new Pokemon Type
 insert into pokemon_type values (:pokemon_id, :type_id);
@@ -95,7 +123,7 @@ delete from type_effect where type_id1 = :type_id;
 update pokemon set name = :name, evolution = :evolution, description = :description where id = :id;
 
 -- Update a move
-update move set name = :name, power = :power, accuarcy = :accuarcy where id = :id;
+update move set name = :name, power = :power, accuracy = :accuarcy where id = :id;
 
 -- Update a type
 update move set name = :name where id = :id;

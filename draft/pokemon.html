@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Pokemons</title>
+
+    <link rel="stylesheet" href="/css/global.css">
+
     <script src="/js/fetcher.js"></script>
     <script src="/js/populate-data.js"></script>
 </head>
@@ -11,15 +14,15 @@
 <form method="POST" action="/pokemon"> 
     <fieldset>
         <legend>Add or edit a Pokemon</legend>
-        <label>Number: </label><input type="text" name="id">
+        <label>Number: <input type="text" name="id"></label>
         <br/>
-        <label>Name: </label><input type="text" name="name">
+        <label>Name: <input type="text" name="name"></label>
         <br/>
-        <label>Description: </label><input type="text" name="description">
+        <label>Description: <input type="text" name="description"></label>
         <br/>
-        <label>Type: </label><select id= "ptypes" name="ptype"></select>
+        <label>Type: <select id= "ptypes" name="ptype"></select></label>
         <br/>
-        <label>Evolution: </label><input type="number" name="evolution">
+        <label>Evolution: <input type="number" name="evolution"></label>
         <br/>
         <input type="submit" value="Save">
     </fieldset>
@@ -28,7 +31,7 @@
 <form >
     <fieldset>
         <legend>Find a Pokemon by name</legend>
-        <label>Name: </label><input type="text" name="name">
+        <label>Name: <input type="text" name="name"></label>
         <br/>
         <input type="submit" value="Search">
     </fieldset>
@@ -52,19 +55,25 @@
     };
 
     function getPokemons() {
-        console.log("using url:", window.location.href)
-        let endpoint = window.location.href + "Data"
-        fetchData(endpoint, data => populateTable("pokemons", data));
+        console.log("using url:", window.location.href);
+        let endpoint = window.location.href + "Data";
+        let columnMapping = {
+            "id": {"alias": "Number"},
+            "name": {"alias": "Name"},
+            "evolution": {"alias": "Evolution"},
+            "description": {"alias": "Description"}
+        };
+        fetchData(endpoint, data => populateTable("pokemons", data, columnMapping));
     }
 
     function getTypes() {
-        let endpoint = window.location.origin + "/typeData"
+        let endpoint = window.location.origin + "/typeData";
         fetchData(endpoint, data => populateSelect("ptypes", data));
     }
 
     // Set event handlers
     //document.getElementById("submit").addEventListener("click", () => {})
-    document.getElementById("getData").addEventListener("click", getPokemons)
+    document.getElementById("getData").addEventListener("click", getPokemons);
 </script>
 
 
