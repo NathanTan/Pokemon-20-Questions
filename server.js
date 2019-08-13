@@ -4,7 +4,7 @@ const express = require('express')
 const app = express()
 const { getAllPokemons, getPokemonByName } = require('./db/pokemon')
 const { getAllTrainers } = require('./db/trainer')
-const { getAllTypes } = require('./db/type')
+const { getAllTypes, getTypesByPokemonId } = require('./db/type')
 const { getAllMoves } = require('./db/move')
 
 const staticPath = path.join(__dirname, '/public')
@@ -15,7 +15,8 @@ const bodyParser = require('body-parser')
 
 /* Create Pool */
 const { createPool } = require('mysql')
-const { pool } = require('./db/sqlPool')
+const { pool, dbConfig } = require('./db/sqlPool')
+const { Database } = require('./db/database')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -90,8 +91,49 @@ app.get('/pokemonData', (req, res) => {
 
 // Get Pokemon By Name
 app.get('/pokemon/:name', (req, res) => {
+    let sql = `select p.id, p.name, p.description,  e.id as eid, e.name as ename from pokemon p left join pokemon e on e.id = p.evolution where p.name = ?` 
+    let sql_two = `select t.id, t.name from pokemon_type pt join type t on pt.type_id = t.id where pt.pokemon_id = ?`
+ 
+    let someRows, otherRows;
+
+    let db = new Database(dbConfig)
+ /*   db.query(sql, req.params.name)
+        .then( rows => {
+            someRows = rows
+            console.log("Pokemon results:", someRows)
+            return db.query(sql_two, someRows[0].id)
+        })
+        .then( rows => {
+            otherRows = rows
+            console.log("Type Results:", otherRows)
+            return db.close()
+        })
+        .then( () => {
+
+            console.log("---------------Final callback")
+            console.log("Pokemon results:", someRows)
+            console.log("Type Results:", otherRows)
+        })
+            console.log("-------------post query")
+            console.log("Pokemon results:", someRows)
+            console.log("Type Results:", otherRows)
+
+*/
+            let pokemon = getPokemonByName(db, req.params.name, res)
+
+            console.log("Fatemon:", pokemon)
+
+/*
+
+
     let context = {}
-    getPokemonByName(res, pool, context, null, req.params.name)
+    const onComplete = () => {
+        console.log("Func")
+    }
+    let pokemon = getPokemonByName(res, pool, context, onComplete, req.params.name)
+
+    console.log(`The goods: ${JSON.stringify(pokemon)}`)
+*/    
 })
 
 
