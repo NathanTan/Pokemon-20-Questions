@@ -12,8 +12,6 @@
 <body>
 
 
-
-
 <form method="POST" action="/move">
     <fieldset>
         <legend>Add or edit a Move</legend>
@@ -31,14 +29,12 @@
     </fieldset>
 </form>
 
-<form >
-    <fieldset>
-        <legend>Find a Move by name</legend>
-        <label>Name: <input type="text" name="name"></label>
-        <br/>
-        <input type="submit" value="Search">
-    </fieldset>
-</form>
+<fieldset>
+    <legend>Find a Move by name</legend>
+    <label>Name: <input type="text" id="name-search" name="name"></label>
+    <br/>
+    <button id="search">Search</button>
+</fieldset>
 
 <p><a href="/">Back to Home</a></p>
 
@@ -57,9 +53,7 @@
         getTypes();
     };
 
-    function getMoves() {
-        console.log("using url:", window.location.href);
-        let endpoint = window.location.href + "Data";
+    function fetchMoves(endpoint) {
         let columnMapping = {
             "id": {"alias": "Number"},
             "name": {"alias": "Name"},
@@ -68,6 +62,16 @@
             "type": {"alias": "Type"}
         };
         fetchData(endpoint, data => populateTable("moves", data, columnMapping));
+    }
+
+    function getAllMoves() {
+        let endpoint = window.location.href + "Data";
+        fetchMoves(endpoint);
+    }
+
+    function searchMove() {
+        let endpoint = window.location.href + "Search/" + document.getElementById("name-search").value +  "";
+        fetchMoves(endpoint);
     }
 
     function getTypes() {
@@ -87,7 +91,8 @@
     }
 
     // Set event handlers
-    document.getElementById("getData").addEventListener("click", getMoves)
+    document.getElementById("getData").addEventListener("click", getAllMoves);
+    document.getElementById("search").addEventListener("click", searchMove);
 </script>
 
 

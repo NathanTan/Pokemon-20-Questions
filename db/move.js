@@ -45,4 +45,22 @@ function getMoveByName(db, move_name, res) {
         })
 }
 
-exports.getMoveByName = getMoveByName
+
+function searchMoveByName(db, move_name, res) {
+    let wildcardName = "%" + move_name + "%";
+    let sql = `SELECT * FROM move where name like ?`;
+
+    let results;
+    db.query(sql, wildcardName)
+        .then(rows => {
+            results = rows;
+            return db.close()
+        })
+        .then(() => {
+            res.json(results);
+        });
+}
+
+
+exports.getMoveByName = getMoveByName;
+exports.searchMoveByName = searchMoveByName;

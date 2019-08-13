@@ -61,14 +61,12 @@
     </fieldset>
 </form>
 
-<form >
-    <fieldset>
-        <legend>Find a Pokemon by name</legend>
-        <label>Name: <input type="text" name="name"></label>
-        <br/>
-        <input type="submit" value="Search">
-    </fieldset>
-</form>
+<fieldset>
+    <legend>Find a Pokemon by name</legend>
+    <label>Name: <input type="text" id="name-search" name="name"></label>
+    <br/>
+    <button id="search">Search</button>
+</fieldset>
 
 <p><a href="/">Back to Home</a></p>
 
@@ -90,8 +88,7 @@
 
     let allTypes = [];
 
-    function getPokemons() {
-        let endpoint = window.location.href + "Data";
+    function fetchPokemons(endpoint) {
         let columnMapping = {
             "id": {"alias": "Number"},
             "name": {"alias": "Name"},
@@ -99,6 +96,16 @@
             "description": {"alias": "Description"}
         };
         fetchData(endpoint, data => populateTable("pokemons", data, columnMapping));
+    }
+
+    function getAllPokemons() {
+        let endpoint = window.location.href + "Data";
+        fetchPokemons(endpoint);
+    }
+
+    function searchPokemon() {
+        let endpoint = window.location.href + "Search/" + document.getElementById("name-search").value +  "";
+        fetchPokemons(endpoint);
     }
 
     function getTypes() {
@@ -135,7 +142,8 @@
     }
 
     // Set event handlers
-    document.getElementById("getData").addEventListener("click", getPokemons);
+    document.getElementById("getData").addEventListener("click", getAllPokemons);
+    document.getElementById("search").addEventListener("click", searchPokemon);
 
     document.getElementById("ptypes-to-available").addEventListener("click", () => moveSelected("ptypes", "available"));
     document.getElementById("available-to-ptypes").addEventListener("click", () => moveSelected("available", "ptypes"));

@@ -62,4 +62,21 @@ function getPokemonByName(db, pokemon_name, res) {
 }
 
 
-exports.getPokemonByName = getPokemonByName
+function searchPokemonByName(db, pokemon_name, res) {
+    let wildcardName = "%" + pokemon_name + "%";
+    let sql = `SELECT * FROM pokemon where name like ?`;
+
+    let results;
+    db.query(sql, wildcardName)
+        .then(rows => {
+            results = rows;
+            return db.close()
+        })
+        .then(() => {
+            res.json(results);
+        });
+}
+
+
+exports.getPokemonByName = getPokemonByName;
+exports.searchPokemonByName = searchPokemonByName;

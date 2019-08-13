@@ -71,4 +71,22 @@ function getTrainerByName(db, trainer_name, res) {
         })
 }
 
-exports.getTrainerByName = getTrainerByName
+
+function searchTrainerByName(db, move_name, res) {
+    let wildcardName = "%" + move_name + "%";
+    let sql = `SELECT * FROM trainer where name like ?`;
+
+    let results;
+    db.query(sql, wildcardName)
+        .then(rows => {
+            results = rows;
+            return db.close()
+        })
+        .then(() => {
+            res.json(results);
+        });
+}
+
+
+exports.getTrainerByName = getTrainerByName;
+exports.searchTrainerByName = searchTrainerByName;
