@@ -18,9 +18,9 @@
         <br/>
         <label>Name: <input type="text" id="name" name="name"></label>
         <br/>
-        <label>Description: <input type="text" name="description"></label>
+        <label>Description: <input type="text" id="desc" name="description"></label>
         <br/>
-        <label>Type: <select id= "ptypes" name="ptype"></select></label>
+        <label>Type: <select id="ptypes" name="ptype"></select></label>
         <br/>
         <label>Evolution: <select id="evolutions" name="evolution"></select></label>
         <br/>
@@ -89,30 +89,6 @@
     //document.getElementById("submit").addEventListener("click", () => {})
     document.getElementById("getData").addEventListener("click", getPokemons);
 </script>
-
-
-
-
-<script>
-    function fetchData() {
-        console.log("using url:", window.location.href)
-        var endpoint = window.location.href + "Data"
-        fetch(endpoint)
-            .then(function(response) {
-            return response.json();
-            })
-            .then(function(myJson) {
-            console.log(JSON.stringify(myJson));
-            });
-    }
-
-
-    // Set event handlers
-    //document.getElementById("submit").addEventListener("click", () => {})
-    document.getElementById("getData").addEventListener("click", fetchData)
-</script>
-
-
 
 </body>
 </html>
