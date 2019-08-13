@@ -14,9 +14,9 @@
 <form method="POST" action="/pokemon"> 
     <fieldset>
         <legend>Add or edit a Pokemon</legend>
-        <label>Number: <input type="text" name="id"></label>
+        <label>Number: <input type="text" id="id" name="id"></label>
         <br/>
-        <label>Name: <input type="text" name="name"></label>
+        <label>Name: <input type="text" id="name" name="name"></label>
         <br/>
         <label>Description: <input type="text" name="description"></label>
         <br/>
@@ -79,6 +79,10 @@
         none.value = null;
         none.innerHTML = "None";
         document.getElementById("evolutions").add(none, 0);
+    }
+
+    function editRecord(item) {
+        document.getElementById("name").value = "Selected " + item;
     }
 
     // Set event handlers
