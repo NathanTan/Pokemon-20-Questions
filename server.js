@@ -3,9 +3,9 @@ const express = require('express')
 
 const app = express()
 const { getAllPokemons, getPokemonByName } = require('./db/pokemon')
-const { getAllTrainers } = require('./db/trainer')
+const { getAllTrainers, getTrainerByName } = require('./db/trainer')
 const { getAllTypes, getTypesByPokemonId } = require('./db/type')
-const { getAllMoves } = require('./db/move')
+const { getAllMoves, getMoveByName } = require('./db/move')
 
 const staticPath = path.join(__dirname, '/public')
 app.use(express.static(staticPath))
@@ -51,14 +51,19 @@ function deleteData(tableName, id, returnUrl, res) {
 }
 
 
-
-
 /* Routes */
 app.get('/move', (req, res, next) => {
     res.status(200).sendFile('./draft/move.html', {root: __dirname })
 })
 
-app.get('/pokemon', (req, res, next) => {
+app.get('/pokemon', (req, res) => {
+    console.log("herrey")
+    if (req.params.length > 1) {
+        console.log("in")
+        let db = new Database(dbConfig)
+        getPokemonByName(db, req.params.name, res)
+    }
+console.log(req.params)
     res.status(200).sendFile('./draft/pokemon.html', {root: __dirname })
 })
 
@@ -82,12 +87,19 @@ app.get('/moveData', (req, res) => {
     getAllMoves(res, pool, null, null)
 })
 
+// Get Move By Name
+app.get('/move/:name', (req, res) => {
+    let db = new Database(dbConfig)
+    getMoveByName(db, req.params.name, res)
+})
+
 /*********** Pokemon ***********/
 
 app.get('/pokemonData', (req, res) => {
     let context = {}
     getAllPokemons(res, pool, context, null)
 })
+
 
 // Get Pokemon By Name
 app.get('/pokemon/:name', (req, res) => {
@@ -100,6 +112,11 @@ app.get('/pokemon/:name', (req, res) => {
 app.get('/trainerData', (req, res) => {
     let trainer = req.body
     getAllTrainers(res, pool, null, null)
+})
+
+app.get('/trainer/:name', (req, res) => {
+    let db = new Database(dbConfig)
+    getTrainerByName(db, req.params.name, res)
 })
 
 /*********** Types   ***********/
