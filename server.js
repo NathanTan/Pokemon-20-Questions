@@ -2,10 +2,10 @@ const path = require('path')
 const express = require('express')
 
 const app = express()
-const { getAllPokemons } = require('./db/pokemon')
-const { getAllTrainers } = require('./db/trainer')
-const { getAllTypes } = require('./db/type')
-const { getAllMoves } = require('./db/move')
+const { getAllPokemons, getPokemonByName } = require('./db/pokemon')
+const { getAllTrainers, getTrainerByName } = require('./db/trainer')
+const { getAllTypes, getTypeByName } = require('./db/type')
+const { getAllMoves, getMoveByName } = require('./db/move')
 
 const staticPath = path.join(__dirname, '/public')
 app.use(express.static(staticPath))
@@ -15,7 +15,8 @@ const bodyParser = require('body-parser')
 
 /* Create Pool */
 const { createPool } = require('mysql')
-const { pool } = require('./db/sqlPool')
+const { pool, dbConfig } = require('./db/sqlPool')
+const { Database } = require('./db/database')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -50,14 +51,19 @@ function deleteData(tableName, id, returnUrl, res) {
 }
 
 
-
-
 /* Routes */
 app.get('/move', (req, res, next) => {
     res.status(200).sendFile('./draft/move.html', {root: __dirname })
 })
 
-app.get('/pokemon', (req, res, next) => {
+app.get('/pokemon', (req, res) => {
+    console.log("herrey")
+    if (req.params.length > 1) {
+        console.log("in")
+        let db = new Database(dbConfig)
+        getPokemonByName(db, req.params.name, res)
+    }
+console.log(req.params)
     res.status(200).sendFile('./draft/pokemon.html', {root: __dirname })
 })
 
@@ -74,27 +80,55 @@ app.get('/', (req, res, next) => {
 })
 
 /* READs */
+/*********** Moves   ************/
 app.get('/moveData', (req, res) => {
     console.log(req.body)
     let move = req.body
     getAllMoves(res, pool, null, null)
 })
 
+// Get Move By Name
+app.get('/move/:name', (req, res) => {
+    let db = new Database(dbConfig)
+    getMoveByName(db, req.params.name, res)
+})
+
+/*********** Pokemon ***********/
+
 app.get('/pokemonData', (req, res) => {
     let context = {}
     getAllPokemons(res, pool, context, null)
 })
 
+
+// Get Pokemon By Name
+app.get('/pokemon/:name', (req, res) => {
+    let db = new Database(dbConfig)
+    getPokemonByName(db, req.params.name, res)
+})
+
+
+/*********** Trainer ***********/
 app.get('/trainerData', (req, res) => {
     let trainer = req.body
     getAllTrainers(res, pool, null, null)
 })
 
+app.get('/trainer/:name', (req, res) => {
+    let db = new Database(dbConfig)
+    getTrainerByName(db, req.params.name, res)
+})
+
+/*********** Types   ***********/
 app.get('/typeData', (req, res) => {
     let type = req.body
     getAllTypes(res, pool, null, null)
 })
 
+app.get('/type/:name', (req, res) => {
+    let db = new Database(dbConfig)
+    getTypeByName(db, req.params.name, res)
+})
 
 
 /* Posts */
