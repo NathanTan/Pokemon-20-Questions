@@ -17,10 +17,43 @@
 <form method="POST" action="/trainer">
     <fieldset>
         <legend>Add or edit a Trainer</legend>
-        <label>Name:<input type="text" name="name"> </label>
+        <label>Name:<input type="text" id="name" name="name"> </label>
         <br/>
-        <label>Type: <select id="ttypes" name="type"></select></label>
+        <div class="wrapper">
+            <div class="inner">
+                <label>Types:</label>
+            </div>
+            <div class="inner">
+                <label>
+                    <select id="ttypes" multiple="multiple" name="types">
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div>&nbsp;</div>
+            <div>
+                <input id="ptypes-to-available" type="button" value="->">
+            </div>
+            <div>
+                <input id="available-to-ptypes" type="button" value="<-">
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="inner">
+                <label>Available types:</label>
+            </div>
+            <div class="inner">
+                <label>
+                    <select id="available-types" multiple="multiple" name="types">
+                    </select>
+                </label>
+            </div>
+        </div>
+
+<!--        <label>Type: <select id="ttypes" name="type"></select></label>-->
         <br/>
+        <div class="flush-left">
         <div class="wrapper">
             <div class="inner">
                 <label>Pokemons owned:</label>
@@ -47,10 +80,11 @@
             </div>
             <div class="inner">
                 <label>
-                    <select id="available" multiple="multiple" name="types">
+                    <select id="available-pokemons" multiple="multiple" name="types">
                     </select>
                 </label>
             </div>
+        </div>
         </div>
         <br/>
         <div class="flush-left">
@@ -86,6 +120,9 @@
         getPokemons();
     };
 
+    let allTypes = [];
+    let allPokemons = [];
+
     function getTrainers() {
         console.log("using url:", window.location.href);
         let endpoint = window.location.href + "Data";
@@ -98,12 +135,33 @@
 
     function getTypes() {
         let endpoint = window.location.origin + "/typeData";
-        fetchData(endpoint, data => populateSelect("ttypes", data));
+        fetchData(endpoint, data => {
+            populateSelect("available-types", data)
+            allTypes = [...data];
+        });
     }
 
     function getPokemons() {
         let endpoint = window.location.origin + "/pokemonData";
-        fetchData(endpoint, data => populateSelect("available", data));
+        fetchData(endpoint, data => {
+            populateSelect("available-pokemons", data);
+            allPokemons = [...data];
+        });
+    }
+
+    function editRecord(item) {
+        populateSelect("available-types", allTypes);
+        populateSelect("available-pokemons", allPokemons);
+
+        let endpoint = window.location.href + "/" + item.name;
+        fetchData(endpoint, data => {
+            document.getElementById("name").value = data.name;
+            document.getElementById("ttypes").innerHTML = "";
+            document.getElementById("owned").innerHTML = "";
+
+            moveItemsById(data.types, "available-types", "ttypes")
+            moveItemsById(data.pokemon, "available-pokemons", "owned")
+        })
     }
 
     // Set event handlers

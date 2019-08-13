@@ -54,7 +54,7 @@ function populateTable(tableName, dbData, columnMapping) {
         }
 
         let editButton = createButton('edit_btn', 'Edit', () => {
-            editRecord(dbData[i].id);
+            editRecord(dbData[i]);
         });
         let edit = tr.insertCell(-1);
         edit.appendChild(editButton);
@@ -82,6 +82,8 @@ function populateSelect(selectBoxName, dbData) {
     }
 
     let selectBox = document.getElementById(selectBoxName);
+    selectBox.innerHTML = "";
+
     for (let i = 0; i < dbData.length; i++) {
         selectBox.innerHTML = selectBox.innerHTML +
             '<option value="' + dbData[i][col[0]] + '">' + dbData[i][col[1]] + '</option>';

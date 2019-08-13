@@ -17,15 +17,15 @@
 <form method="POST" action="/move">
     <fieldset>
         <legend>Add or edit a Move</legend>
-        <label>Number: <input type="text" name="id"></label>
+        <label>Number: <input type="text" id="id" name="id"></label>
         <br/>
-        <label>Name: <input type="text" name="name"></label>
+        <label>Name: <input type="text" id="name" name="name"></label>
         <br/>
-        <label>Type: <select id="mtypes"></select></label>
+        <label>Type: <select id="mtypes" name="type"></select></label>
         <br/>
-        <label>Power: <input type="text" name="power"></label>
+        <label>Power: <input type="text" id="power" name="power"></label>
         <br/>
-        <label>Accuracy: <input type="text" name="accuracy"></label>
+        <label>Accuracy: <input type="text" id="accuracy" name="accuracy"></label>
         <br/>
         <input type="submit" value="submit" id="submit">
     </fieldset>
@@ -73,6 +73,17 @@
     function getTypes() {
         let endpoint = window.location.origin + "/typeData";
         fetchData(endpoint, data => populateSelect("mtypes", data));
+    }
+
+    function editRecord(item) {
+        let endpoint = window.location.href + "/" + item.name;
+        fetchData(endpoint, data => {
+            document.getElementById("id").value = data.id;
+            document.getElementById("name").value = data.name;
+            document.getElementById("power").value = data.power;
+            document.getElementById("accuracy").value = data.accuracy;
+            document.getElementById("mtypes").value = data.type.id;
+        })
     }
 
     // Set event handlers
