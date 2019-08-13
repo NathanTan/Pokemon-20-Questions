@@ -18,7 +18,7 @@ exports.getAllTypes = function (res, mysqlPool, context, onComplete){
 // Resulting object defined in data_shapes.json 
 function getTypeByName(db, type_name, res) {
     let sql = "select * from type t where t.name = ?"
-    let sql2 = "select te.type_id2, t.name, te.effect_id, e.name from type_effect te " +
+    let sql2 = "select * from type_effect te " +
                 "join effect e on te.effect_id = e.id " +
                 "join type t on te.type_id2 = t.id " +
                 "where te.type_id1 = ?"
@@ -29,25 +29,19 @@ function getTypeByName(db, type_name, res) {
     db.query(sql, type_name)
         .then( rows => {
             someRows = rows
-            console.log("1:", someRows)
-            return db.query(sql2, type_name)
+            return db.query(sql2, someRows[0].id)
         })
         .then( rows => {
             otherRows = rows
-            console.log("2:", otherRows)
             let ids = []
-            console.log("keys")
             for (let key of otherRows) {
-    console.log(key)
                 ids.push(key.type_id2)
             }
-    console.log("ids", ids)    
-        return db.query(sql3, ids) 
+            return db.query(sql3, ids) 
         })
         .then( rows => {
 
             lastRows = rows
-            console.log("lastRows", lastRows)
             return db.close()
         })
         .then( () => {
@@ -63,25 +57,23 @@ function getTypeByName(db, type_name, res) {
 
             // Adding Pokemon
             for (let key of otherRows) {
-                console.log
-                console.log(key)
                 switch (key.effect_id) {
                     case 0:
                         notEffective.types.push({
                             id: key.type_id2,
-                            name: "tbd"
+                            name: key.name
                         })
                     break
                     case 1:
                         superEffective.types.push({
                             id: key.type_id2,
-                            name: "tbd"
+                            name: key.name
                         })
                     break
                     case 2:
                         notEffective.types.push({
                             id: key.type_id2,
-                            name: "tbd"
+                            name: key.name
                         })
                     break
                 }
