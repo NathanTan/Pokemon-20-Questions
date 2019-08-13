@@ -4,7 +4,7 @@ const express = require('express')
 const app = express()
 const { getAllPokemons, getPokemonByName } = require('./db/pokemon')
 const { getAllTrainers, getTrainerByName } = require('./db/trainer')
-const { getAllTypes, getTypesByPokemonId } = require('./db/type')
+const { getAllTypes, getTypeByName } = require('./db/type')
 const { getAllMoves, getMoveByName } = require('./db/move')
 
 const staticPath = path.join(__dirname, '/public')
@@ -125,6 +125,10 @@ app.get('/typeData', (req, res) => {
     getAllTypes(res, pool, null, null)
 })
 
+app.get('/type/:name', (req, res) => {
+    let db = new Database(dbConfig)
+    getTypeByName(db, req.params.name, res)
+})
 
 
 /* Posts */

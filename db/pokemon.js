@@ -8,6 +8,7 @@ exports.getAllPokemons = function (res, mysqlPool, context, onComplete){
                 res.write(JSON.stringify(error))
                 res.end()
             }
+            console.log("here")
             console.log("results: ", results)
             res.json(results)
             return results
