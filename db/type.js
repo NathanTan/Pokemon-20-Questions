@@ -14,4 +14,3 @@ exports.getAllTypes = function (res, mysqlPool, context, onComplete){
                 onComplete()
         });
 }
-

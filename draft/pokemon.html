@@ -78,5 +78,27 @@
 
 
 
+
+<script>
+    function fetchData() {
+        console.log("using url:", window.location.href)
+        var endpoint = window.location.href + "Data"
+        fetch(endpoint)
+            .then(function(response) {
+            return response.json();
+            })
+            .then(function(myJson) {
+            console.log(JSON.stringify(myJson));
+            });
+    }
+
+
+    // Set event handlers
+    //document.getElementById("submit").addEventListener("click", () => {})
+    document.getElementById("getData").addEventListener("click", fetchData)
+</script>
+
+
+
 </body>
 </html>

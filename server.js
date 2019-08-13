@@ -2,9 +2,9 @@ const path = require('path')
 const express = require('express')
 
 const app = express()
-const { getAllPokemons } = require('./db/pokemon')
+const { getAllPokemons, getPokemonByName } = require('./db/pokemon')
 const { getAllTrainers } = require('./db/trainer')
-const { getAllTypes } = require('./db/type')
+const { getAllTypes, getTypesByPokemonId } = require('./db/type')
 const { getAllMoves } = require('./db/move')
 
 const staticPath = path.join(__dirname, '/public')
@@ -15,7 +15,8 @@ const bodyParser = require('body-parser')
 
 /* Create Pool */
 const { createPool } = require('mysql')
-const { pool } = require('./db/sqlPool')
+const { pool, dbConfig } = require('./db/sqlPool')
+const { Database } = require('./db/database')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -74,22 +75,34 @@ app.get('/', (req, res, next) => {
 })
 
 /* READs */
+/*********** Moves   ************/
 app.get('/moveData', (req, res) => {
     console.log(req.body)
     let move = req.body
     getAllMoves(res, pool, null, null)
 })
 
+/*********** Pokemon ***********/
+
 app.get('/pokemonData', (req, res) => {
     let context = {}
     getAllPokemons(res, pool, context, null)
 })
 
+// Get Pokemon By Name
+app.get('/pokemon/:name', (req, res) => {
+    let db = new Database(dbConfig)
+    getPokemonByName(db, req.params.name, res)
+})
+
+
+/*********** Trainer ***********/
 app.get('/trainerData', (req, res) => {
     let trainer = req.body
     getAllTrainers(res, pool, null, null)
 })
 
+/*********** Types   ***********/
 app.get('/typeData', (req, res) => {
     let type = req.body
     getAllTypes(res, pool, null, null)
