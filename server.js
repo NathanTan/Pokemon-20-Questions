@@ -2,10 +2,10 @@ const path = require('path')
 const express = require('express')
 
 const app = express()
-const { getAllPokemons, getPokemonByName } = require('./db/pokemon')
-const { getAllTrainers, getTrainerByName } = require('./db/trainer')
+const { getAllPokemons, getPokemonByName, searchPokemonByName } = require('./db/pokemon')
+const { getAllTrainers, getTrainerByName, searchTrainerByName } = require('./db/trainer')
 const { getAllTypes, getTypeByName } = require('./db/type')
-const { getAllMoves, getMoveByName } = require('./db/move')
+const { getAllMoves, getMoveByName, searchMoveByName } = require('./db/move')
 
 const staticPath = path.join(__dirname, '/public')
 app.use(express.static(staticPath))
@@ -93,6 +93,12 @@ app.get('/move/:name', (req, res) => {
     getMoveByName(db, req.params.name, res)
 })
 
+// Search Move By Name
+app.get('/moveSearch/:name', (req, res) => {
+    let db = new Database(dbConfig)
+    searchMoveByName(db, req.params.name, res)
+})
+
 /*********** Pokemon ***********/
 
 app.get('/pokemonData', (req, res) => {
@@ -108,6 +114,13 @@ app.get('/pokemon/:name', (req, res) => {
 })
 
 
+// Search Pokemon By Name
+app.get('/pokemonSearch/:name', (req, res) => {
+    let db = new Database(dbConfig)
+    searchPokemonByName(db, req.params.name, res)
+})
+
+
 /*********** Trainer ***********/
 app.get('/trainerData', (req, res) => {
     let trainer = req.body
@@ -117,6 +130,12 @@ app.get('/trainerData', (req, res) => {
 app.get('/trainer/:name', (req, res) => {
     let db = new Database(dbConfig)
     getTrainerByName(db, req.params.name, res)
+})
+
+// Search Trainer By Name
+app.get('/trainerSearch/:name', (req, res) => {
+    let db = new Database(dbConfig)
+    searchTrainerByName(db, req.params.name, res)
 })
 
 /*********** Types   ***********/

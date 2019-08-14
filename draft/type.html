@@ -15,7 +15,7 @@
 <form action="/type" method="POST">
     <fieldset>
         <legend>Add or edit a Type</legend>
-        <label>Name: <input name="name" type="text"></label>
+        <label>Name: <input id="name" name="name" type="text"></label>
         <br/>
         <label>Drag from the available types to the appropriate effect for the current type.</label>
         <br/>
@@ -106,15 +106,6 @@
     </fieldset>
 </form>
 
-<form>
-    <fieldset>
-        <legend>Find a Type by name</legend>
-        <label>Name: <input name="name" type="text"></label>
-        <br/>
-        <input type="submit" value="Search">
-    </fieldset>
-</form>
-
 <p><a href="/">Back to Home</a></p>
 
 <br/>
@@ -132,6 +123,8 @@
         getLookupTypes();
     };
 
+    let allTypes = [];
+
     function getTypes() {
         console.log("using url:", window.location.href);
         let endpoint = window.location.href + "Data";
@@ -139,12 +132,31 @@
             "id": {"alias": "Number", "visible": false},
             "name": {"alias": "Name"},
         };
-        fetchData(endpoint, data => populateTable("types", data, columnMapping));
+        fetchData(endpoint, data => {
+            populateTable("types", data, columnMapping);
+            allTypes = [...data];
+        });
     }
 
     function getLookupTypes() {
         let endpoint = window.location.origin + "/typeData";
         fetchData(endpoint, data => populateSelect("available", data));
+    }
+
+    function editRecord(item) {
+        populateSelect("available", allTypes);
+
+        let endpoint = window.location.href + "/" + item.name;
+        fetchData(endpoint, data => {
+            document.getElementById("name").value = data.name;
+            document.getElementById("strong").innerHTML = "";
+            document.getElementById("weak").innerHTML = "";
+            document.getElementById("none").innerHTML = "";
+
+            moveItemsById(data.effects[0].types, "available", "weak");
+            moveItemsById(data.effects[1].types, "available", "strong");
+            moveItemsById(data.effects[2].types, "available", "none");
+        })
     }
 
     document.getElementById("getData").addEventListener("click", getTypes);
@@ -157,25 +169,6 @@
 
     document.getElementById("none-to-available").addEventListener("click", () => moveSelected("none", "available"));
     document.getElementById("available-to-none").addEventListener("click", () => moveSelected("available", "none"));
-</script>
-
-<script>
-    function fetchData() {
-        console.log("using url:", window.location.href)
-        var endpoint = window.location.href + "Data"
-        fetch(endpoint)
-            .then(function(response) {
-            return response.json();
-            })
-            .then(function(myJson) {
-            console.log(JSON.stringify(myJson));
-            });
-    }
-
-
-    // Set event handlers
-    //document.getElementById("submit").addEventListener("click", () => {})
-    document.getElementById("getData").addEventListener("click", fetchData)
 </script>
 
 </body>

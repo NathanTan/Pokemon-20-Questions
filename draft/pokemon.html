@@ -8,34 +8,65 @@
 
     <script src="/js/fetcher.js"></script>
     <script src="/js/populate-data.js"></script>
+    <script src="/js/item-mover.js"></script>
 </head>
 <body>
 
 <form method="POST" action="/pokemon"> 
     <fieldset>
         <legend>Add or edit a Pokemon</legend>
-        <label>Number: <input type="text" name="id"></label>
+        <label>Number: <input type="text" id="id" name="id"></label>
         <br/>
-        <label>Name: <input type="text" name="name"></label>
+        <label>Name: <input type="text" id="name" name="name"></label>
         <br/>
-        <label>Description: <input type="text" name="description"></label>
+        <label>Description: <textarea id="desc" name="description"></textarea></label>
         <br/>
-        <label>Type: <select id= "ptypes" name="ptype"></select></label>
+        <div class="wrapper">
+            <div class="inner">
+                <label>Types:</label>
+            </div>
+            <div class="inner">
+                <label>
+                    <select id="ptypes" multiple="multiple" name="types">
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div>&nbsp;</div>
+            <div>
+                <input id="ptypes-to-available" type="button" value="->">
+            </div>
+            <div>
+                <input id="available-to-ptypes" type="button" value="<-">
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="inner">
+                <label>Available types:</label>
+            </div>
+            <div class="inner">
+                <label>
+                    <select id="available" multiple="multiple" name="types">
+                    </select>
+                </label>
+            </div>
+        </div>
         <br/>
-        <label>Evolution: <input type="number" name="evolution"></label>
+        <div class="flush-left">
+        <label>Evolution: <select id="evolutions" name="evolution"></select></label>
+        </div>
         <br/>
         <input type="submit" value="Save">
     </fieldset>
 </form>
 
-<form >
-    <fieldset>
-        <legend>Find a Pokemon by name</legend>
-        <label>Name: <input type="text" name="name"></label>
-        <br/>
-        <input type="submit" value="Search">
-    </fieldset>
-</form>
+<fieldset>
+    <legend>Find a Pokemon by name</legend>
+    <label>Name: <input type="text" id="name-search" name="name"></label>
+    <br/>
+    <button id="search">Search</button>
+</fieldset>
 
 <p><a href="/">Back to Home</a></p>
 
@@ -52,11 +83,12 @@
 <script>
     window.onload = function () {
         getTypes();
+        getEvolutions();
     };
 
-    function getPokemons() {
-        console.log("using url:", window.location.href);
-        let endpoint = window.location.href + "Data";
+    let allTypes = [];
+
+    function fetchPokemons(endpoint) {
         let columnMapping = {
             "id": {"alias": "Number"},
             "name": {"alias": "Name"},
@@ -66,39 +98,56 @@
         fetchData(endpoint, data => populateTable("pokemons", data, columnMapping));
     }
 
+    function getAllPokemons() {
+        let endpoint = window.location.href + "Data";
+        fetchPokemons(endpoint);
+    }
+
+    function searchPokemon() {
+        let endpoint = window.location.href + "Search/" + document.getElementById("name-search").value +  "";
+        fetchPokemons(endpoint);
+    }
+
     function getTypes() {
         let endpoint = window.location.origin + "/typeData";
-        fetchData(endpoint, data => populateSelect("ptypes", data));
+        fetchData(endpoint, data => {
+            populateSelect("available", data);
+            allTypes = [...data];
+        });
+    }
+
+    function getEvolutions() {
+        let endpoint = window.location.href + "Data";
+        fetchData(endpoint, data => populateSelect("evolutions", data));
+
+        let none = document.createElement('option');
+        none.value = null;
+        none.innerHTML = "None";
+        document.getElementById("evolutions").add(none, 0);
+    }
+
+    function editRecord(item) {
+        populateSelect("available", allTypes);
+
+        let endpoint = window.location.href + "/" + item.name;
+        fetchData(endpoint, data => {
+            document.getElementById("id").value = data.id;
+            document.getElementById("name").value = data.name;
+            document.getElementById("desc").value = data.description;
+            document.getElementById("evolutions").value = data.evolution.id;
+            document.getElementById("ptypes").innerHTML = "";
+
+            moveItemsById(data.types, "available", "ptypes")
+        })
     }
 
     // Set event handlers
-    //document.getElementById("submit").addEventListener("click", () => {})
-    document.getElementById("getData").addEventListener("click", getPokemons);
+    document.getElementById("getData").addEventListener("click", getAllPokemons);
+    document.getElementById("search").addEventListener("click", searchPokemon);
+
+    document.getElementById("ptypes-to-available").addEventListener("click", () => moveSelected("ptypes", "available"));
+    document.getElementById("available-to-ptypes").addEventListener("click", () => moveSelected("available", "ptypes"));
 </script>
-
-
-
-
-<script>
-    function fetchData() {
-        console.log("using url:", window.location.href)
-        var endpoint = window.location.href + "Data"
-        fetch(endpoint)
-            .then(function(response) {
-            return response.json();
-            })
-            .then(function(myJson) {
-            console.log(JSON.stringify(myJson));
-            });
-    }
-
-
-    // Set event handlers
-    //document.getElementById("submit").addEventListener("click", () => {})
-    document.getElementById("getData").addEventListener("click", fetchData)
-</script>
-
-
 
 </body>
 </html>

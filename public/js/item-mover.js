@@ -14,3 +14,13 @@ function moveSelected(box1Name, box2Name) {
         item.remove();
     });
 }
+
+
+function moveItemsById(typeList, sourceBoxId, targetBoxId) {
+    let options = Array.from(document.querySelectorAll("#" + sourceBoxId + " option"));
+
+    // Type coercion is intentional here.
+    typeList.forEach(t => options.find(o => o.value == t.id).selected = true);
+
+    moveSelected(sourceBoxId, targetBoxId);
+}

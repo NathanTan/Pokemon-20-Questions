@@ -5,12 +5,12 @@
 // https://www.encodedna.com/javascript/populate-select-dropdown-list-with-json-data-using-javascript.htm
 
 function createButton(classname, legend, action) {
-    let editButton = document.createElement('input');
-    editButton.type = 'button';
-    editButton.className = classname;
-    editButton.value = legend;
-    editButton.onclick = action;
-    return editButton;
+    let button = document.createElement('input');
+    button.type = 'button';
+    button.className = classname;
+    button.value = legend;
+    button.onclick = action;
+    return button;
 }
 
 function populateTable(tableName, dbData, columnMapping) {
@@ -53,7 +53,9 @@ function populateTable(tableName, dbData, columnMapping) {
             tabCell.innerHTML = dbData[i][col[j]];
         }
 
-        let editButton = createButton('edit_btn', 'Edit', (function(blah) {}));
+        let editButton = createButton('edit_btn', 'Edit', () => {
+            editRecord(dbData[i]);
+        });
         let edit = tr.insertCell(-1);
         edit.appendChild(editButton);
 
@@ -80,6 +82,8 @@ function populateSelect(selectBoxName, dbData) {
     }
 
     let selectBox = document.getElementById(selectBoxName);
+    selectBox.innerHTML = "";
+
     for (let i = 0; i < dbData.length; i++) {
         selectBox.innerHTML = selectBox.innerHTML +
             '<option value="' + dbData[i][col[0]] + '">' + dbData[i][col[1]] + '</option>';

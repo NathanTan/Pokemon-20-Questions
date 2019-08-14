@@ -12,33 +12,29 @@
 <body>
 
 
-
-
 <form method="POST" action="/move">
     <fieldset>
         <legend>Add or edit a Move</legend>
-        <label>Number: <input type="text" name="id"></label>
+        <label>Number: <input type="text" id="id" name="id"></label>
         <br/>
-        <label>Name: <input type="text" name="name"></label>
+        <label>Name: <input type="text" id="name" name="name"></label>
         <br/>
-        <label>Type: <select id="mtypes"></select></label>
+        <label>Type: <select id="mtypes" name="type"></select></label>
         <br/>
-        <label>Power: <input type="text" name="power"></label>
+        <label>Power: <input type="text" id="power" name="power"></label>
         <br/>
-        <label>Accuracy: <input type="text" name="accuracy"></label>
+        <label>Accuracy: <input type="text" id="accuracy" name="accuracy"></label>
         <br/>
         <input type="submit" value="submit" id="submit">
     </fieldset>
 </form>
 
-<form >
-    <fieldset>
-        <legend>Find a Move by name</legend>
-        <label>Name: <input type="text" name="name"></label>
-        <br/>
-        <input type="submit" value="Search">
-    </fieldset>
-</form>
+<fieldset>
+    <legend>Find a Move by name</legend>
+    <label>Name: <input type="text" id="name-search" name="name"></label>
+    <br/>
+    <button id="search">Search</button>
+</fieldset>
 
 <p><a href="/">Back to Home</a></p>
 
@@ -57,9 +53,7 @@
         getTypes();
     };
 
-    function getMoves() {
-        console.log("using url:", window.location.href);
-        let endpoint = window.location.href + "Data";
+    function fetchMoves(endpoint) {
         let columnMapping = {
             "id": {"alias": "Number"},
             "name": {"alias": "Name"},
@@ -70,13 +64,35 @@
         fetchData(endpoint, data => populateTable("moves", data, columnMapping));
     }
 
+    function getAllMoves() {
+        let endpoint = window.location.href + "Data";
+        fetchMoves(endpoint);
+    }
+
+    function searchMove() {
+        let endpoint = window.location.href + "Search/" + document.getElementById("name-search").value +  "";
+        fetchMoves(endpoint);
+    }
+
     function getTypes() {
         let endpoint = window.location.origin + "/typeData";
         fetchData(endpoint, data => populateSelect("mtypes", data));
     }
 
+    function editRecord(item) {
+        let endpoint = window.location.href + "/" + item.name;
+        fetchData(endpoint, data => {
+            document.getElementById("id").value = data.id;
+            document.getElementById("name").value = data.name;
+            document.getElementById("power").value = data.power;
+            document.getElementById("accuracy").value = data.accuracy;
+            document.getElementById("mtypes").value = data.type.id;
+        })
+    }
+
     // Set event handlers
-    document.getElementById("getData").addEventListener("click", getMoves)
+    document.getElementById("getData").addEventListener("click", getAllMoves);
+    document.getElementById("search").addEventListener("click", searchMove);
 </script>
 
 
