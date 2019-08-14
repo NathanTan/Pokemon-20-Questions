@@ -2,7 +2,7 @@ const path = require('path')
 const express = require('express')
 
 const app = express()
-const { getAllPokemons, getPokemonByName, searchPokemonByName } = require('./db/pokemon')
+const { getAllPokemons, getPokemonByName, searchPokemonByName, updatePokemon } = require('./db/pokemon')
 const { getAllTrainers, getTrainerByName, searchTrainerByName } = require('./db/trainer')
 const { getAllTypes, getTypeByName } = require('./db/type')
 const { getAllMoves, getMoveByName, searchMoveByName } = require('./db/move')
@@ -163,23 +163,9 @@ app.post('/move', (req, res) => {
 app.post('/pokemon', (req, res) => {
     console.log(req.body)
     let pokemon = req.body
+    let db = new Database(dbConfig)
 
-    // let user assign pokemon number as id for now.
-    // pokemon.id = 9999 // TODO: Make this auto increment in the db
-    pokemon.evolution = null // TODO: fix this
-
-    // TODO: collapse into two writes, one response.
-
-    let sql = "insert into pokemon (id, name, evolution, description) values (?, ?, ?, ?)"
-    let inserts = [pokemon.id, pokemon.name,  pokemon.evolution, pokemon.description]
-
-    writeData(sql, inserts, './draft/pokemon.html', res)
-
-    //
-    // let typesql = "insert into pokemon_type(pokemon_id, type_id) values (?, ?);"
-    // let typedata = [pokemon.id, pokemon.ptype]
-    //
-    // writeData(typesql, typedata, './draft/pokemon.html', res)
+    updatePokemon(db, pokemon, res);
 })
 
 app.post('/trainer', (req, res) => {
