@@ -78,5 +78,36 @@ function searchPokemonByName(db, pokemon_name, res) {
 }
 
 
+function updatePokemon(db, pokemon) {
+    let sql = `insert into pokemon (id, name, evolution, description) values (?, ?, ?, ?) on duplicate key update name=values(name), evolution=values(evolution), description=values(description)`;
+    let inserts = [pokemon.id, pokemon.name, pokemon.evolution, pokemon.description];
+
+    db.query(sql, inserts)
+        .then(() => {
+            let sql = `delete from pokemon_type where pokemon_id = ?`;
+            let inserts = [pokemon.id];
+            return db.query(sql, inserts);
+        })
+        .then(() => {
+            if (pokemon.hasOwnProperty("types")) {
+                let sql = `insert into pokemon_type (pokemon_id, type_id) values ?`;
+                let inserts = [];
+                for (let i = 0; i < pokemon.types.length; i++) {
+                    inserts.push([pokemon.id, pokemon.types[i]]);
+                }
+                return db.query(sql, [inserts]);
+            }
+        }).then(() => {
+            return db.close();
+        })
+        .then(() => {
+            return null;
+        })
+        .catch(err => {
+            return err;
+        });
+}
+
 exports.getPokemonByName = getPokemonByName;
 exports.searchPokemonByName = searchPokemonByName;
+exports.updatePokemon = updatePokemon;

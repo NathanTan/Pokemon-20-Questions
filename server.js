@@ -2,10 +2,10 @@ const path = require('path')
 const express = require('express')
 
 const app = express()
-const { getAllPokemons, getPokemonByName, searchPokemonByName } = require('./db/pokemon')
-const { getAllTrainers, getTrainerByName, searchTrainerByName } = require('./db/trainer')
-const { getAllTypes, getTypeByName } = require('./db/type')
-const { getAllMoves, getMoveByName, searchMoveByName } = require('./db/move')
+const { getAllPokemons, getPokemonByName, searchPokemonByName, updatePokemon } = require('./db/pokemon')
+const { getAllTrainers, getTrainerByName, searchTrainerByName , updateTrainer } = require('./db/trainer')
+const { getAllTypes, getTypeByName, updateType } = require('./db/type')
+const { getAllMoves, getMoveByName, searchMoveByName, updateMove } = require('./db/move')
 
 const staticPath = path.join(__dirname, '/public')
 app.use(express.static(staticPath))
@@ -154,53 +154,63 @@ app.get('/type/:name', (req, res) => {
 app.post('/move', (req, res) => {
     console.log(req.body)
     let move = req.body
-    
-    let sql = "insert into move (id, name, power, accuracy) values (?, ?, ?, ?)"
-    let inserts = [move.number, move.name, move.power, move.accuracy]
-    writeData(sql, inserts, './draft/move.html', res)
+    let db = new Database(dbConfig)
+    let error = updateMove(db, move);
+    if (error) {
+        let message = JSON.stringify(error);
+        console.log("Error inserting or updating Move: " + message);
+        res.write(message);
+        res.end();
+    } else {
+        res.status(200).sendFile('./draft/move.html', {root: __dirname});
+    }
 })
 
 app.post('/pokemon', (req, res) => {
     console.log(req.body)
     let pokemon = req.body
-
-    // let user assign pokemon number as id for now.
-    // pokemon.id = 9999 // TODO: Make this auto increment in the db
-    pokemon.evolution = null // TODO: fix this
-
-    // TODO: collapse into two writes, one response.
-
-    let sql = "insert into pokemon (id, name, evolution, description) values (?, ?, ?, ?)"
-    let inserts = [pokemon.id, pokemon.name,  pokemon.evolution, pokemon.description]
-
-    writeData(sql, inserts, './draft/pokemon.html', res)
-
-    //
-    // let typesql = "insert into pokemon_type(pokemon_id, type_id) values (?, ?);"
-    // let typedata = [pokemon.id, pokemon.ptype]
-    //
-    // writeData(typesql, typedata, './draft/pokemon.html', res)
+    let db = new Database(dbConfig)
+    let error = updatePokemon(db, pokemon);
+    if (error) {
+        let message = JSON.stringify(error);
+        console.log("Error inserting or updating Pokemon: " +  message);
+        res.write(JSON.stringify(message));
+        res.end();
+    } else {
+        res.status(200).sendFile('./draft/pokemon.html', {root: __dirname});
+    }
 })
 
 app.post('/trainer', (req, res) => {
     let trainer = req.body
-    getAllTrainers(res, pool, null, null)
     console.log(req.body)
-    
-    let sql = "insert into trainer (id, name) values (?,?)"
-    let inserts = [trainer.id, trainer.name]
 
-    writeData(sql, inserts, './draft/trainer.html', res)
+    let db = new Database(dbConfig)
+    let error = updateTrainer(db, trainer);
+    if (error) {
+        let message = JSON.stringify(error);
+        console.log("Error inserting or updating Trainer: " +  message);
+        res.write(JSON.stringify(message));
+        res.end();
+    } else {
+        res.status(200).sendFile('./draft/trainer.html', {root: __dirname});
+    }
 })
 
 app.post('/type', (req, res) => {
     let type = req.body
-    getAllTypes(res, pool, null, null)
+    console.log(req.body)
 
-    let sql = "insert into type (name) values (?)"
-    let insert = [type.name]
-
-    writeData(sql, insert, './draft/type.html', res)
+    let db = new Database(dbConfig)
+    let error = updateType(db, type);
+    if (error) {
+        let message = JSON.stringify(error);
+        console.log("Error inserting or updating Type: " +  message);
+        res.write(JSON.stringify(message));
+        res.end();
+    } else {
+        res.status(200).sendFile('./draft/type.html', {root: __dirname});
+    }
 })
 
 /* Puts */

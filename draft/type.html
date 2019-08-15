@@ -12,9 +12,10 @@
 </head>
 <body>
 
-<form action="/type" method="POST">
+<form id="main" action="/type" method="POST">
     <fieldset>
         <legend>Add or edit a Type</legend>
+        <input id="id" name="id" type="hidden">
         <label>Name: <input id="name" name="name" type="text"></label>
         <br/>
         <label>Drag from the available types to the appropriate effect for the current type.</label>
@@ -27,7 +28,7 @@
                 </div>
                 <div class="inner">
                     <label>
-                        <select id="strong" multiple="multiple" name="types1">
+                        <select id="strong" multiple="multiple" name="strong">
                         </select>
                     </label>
                 </div>
@@ -49,7 +50,7 @@
                 </div>
                 <div class="inner">
                     <label>
-                        <select id="weak" multiple="multiple" name="types1">
+                        <select id="weak" multiple="multiple" name="weak">
                         </select>
                     </label>
                 </div>
@@ -71,7 +72,7 @@
                 </div>
                 <div class="inner">
                     <label>
-                        <select id="none" multiple="multiple" name="types1">
+                        <select id="none" multiple="multiple" name="none">
                         </select>
                     </label>
                 </div>
@@ -93,7 +94,7 @@
             </div>
             <div class="inner">
                 <label>
-                    <select id="available" multiple="multiple" name="atypes" size="16">
+                    <select id="available" multiple="multiple" size="16">
                     </select>
                 </label>
             </div>
@@ -148,6 +149,7 @@
 
         let endpoint = window.location.href + "/" + item.name;
         fetchData(endpoint, data => {
+            document.getElementById("id").value = data.id;
             document.getElementById("name").value = data.name;
             document.getElementById("strong").innerHTML = "";
             document.getElementById("weak").innerHTML = "";
@@ -159,6 +161,14 @@
         })
     }
 
+    function processForm() {
+        selectAllItems("strong");
+        selectAllItems("weak");
+        selectAllItems("none");
+        return true;
+    }
+
+
     document.getElementById("getData").addEventListener("click", getTypes);
 
     document.getElementById("strong-to-available").addEventListener("click", () => moveSelected("strong", "available"));
@@ -169,6 +179,13 @@
 
     document.getElementById("none-to-available").addEventListener("click", () => moveSelected("none", "available"));
     document.getElementById("available-to-none").addEventListener("click", () => moveSelected("available", "none"));
+
+    document.getElementById("main").addEventListener("submit", () => processForm());
+
+
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
 </script>
 
 </body>

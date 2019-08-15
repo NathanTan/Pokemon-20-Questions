@@ -62,5 +62,23 @@ function searchMoveByName(db, move_name, res) {
 }
 
 
+function updateMove(db, move) {
+    let sql = `insert into move (id, name, type, power, accuracy) values (?, ?, ?, ?, ?) on duplicate key update name=values(name), type=values(type), power=values(power), accuracy=values(accuracy)`;
+    let inserts = [move.id, move.name, move.type, move.power, move.accuracy];
+
+    db.query(sql, inserts)
+        .then(() => {
+            return db.close();
+        })
+        .then(() => {
+            return null;
+        })
+        .catch(err => {
+            return err;
+        });
+}
+
+
 exports.getMoveByName = getMoveByName;
 exports.searchMoveByName = searchMoveByName;
+exports.updateMove = updateMove;

@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<form method="POST" action="/pokemon"> 
+<form id="main" method="POST"  action="/pokemon">
     <fieldset>
         <legend>Add or edit a Pokemon</legend>
         <label>Number: <input type="text" id="id" name="id"></label>
@@ -47,7 +47,7 @@
             </div>
             <div class="inner">
                 <label>
-                    <select id="available" multiple="multiple" name="types">
+                    <select id="available" multiple="multiple">
                     </select>
                 </label>
             </div>
@@ -141,12 +141,19 @@
         })
     }
 
+    function processForm() {
+        selectAllItems("ptypes");
+        return true;
+    }
+
     // Set event handlers
     document.getElementById("getData").addEventListener("click", getAllPokemons);
     document.getElementById("search").addEventListener("click", searchPokemon);
 
     document.getElementById("ptypes-to-available").addEventListener("click", () => moveSelected("ptypes", "available"));
     document.getElementById("available-to-ptypes").addEventListener("click", () => moveSelected("available", "ptypes"));
+
+    document.getElementById("main").addEventListener("submit", () => processForm());
 </script>
 
 </body>

@@ -24,3 +24,8 @@ function moveItemsById(typeList, sourceBoxId, targetBoxId) {
 
     moveSelected(sourceBoxId, targetBoxId);
 }
+
+function selectAllItems(boxId) {
+    let options = Array.from(document.querySelectorAll("#" + boxId + " option"));
+    options.forEach(o => o.selected = true);
+}
