@@ -142,8 +142,7 @@
     }
 
     function processForm() {
-        let options = Array.from(document.querySelectorAll("#ptypes option"));
-        options.forEach(o => o.selected = true);
+        selectAllItems("ptypes");
         return true;
     }
 

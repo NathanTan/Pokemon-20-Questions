@@ -88,5 +88,64 @@ function searchTrainerByName(db, move_name, res) {
 }
 
 
+
+function updateTrainer(db, trainer) {
+    let insertId = -1;
+    let sql = `insert into trainer (name) values (?)`;
+    let inserts = [trainer.name];
+
+    if (trainer.id !== "") {
+        insertId = trainer.id;
+        sql = `update trainer set name=? where id=?`;
+        inserts = [trainer.name, trainer.id];
+    }
+
+    db.query(sql, inserts)
+        .then((rows) => {
+            if (insertId < 0) {
+                insertId = rows.insertId;
+            }
+
+            let sql = `delete from trainer_type where trainer_id = ?`;
+            let inserts = [insertId];
+            return db.query(sql, inserts);
+        })
+        .then(() => {
+            if (trainer.hasOwnProperty("types")) {
+                let sql = `insert into trainer_type (trainer_id, type_id) values ?`;
+                let inserts = [];
+                for (let i = 0; i < trainer.types.length; i++) {
+                    inserts.push([insertId, trainer.types[i]]);
+                }
+                return db.query(sql, [inserts]);
+            }
+        })
+        .then(() => {
+        let sql = `delete from pokemon_trainer where trainer_id = ?`;
+        let inserts = [insertId];
+        return db.query(sql, inserts);
+        })
+        .then(() => {
+            if (trainer.hasOwnProperty("owned")) {
+                let sql = `insert into pokemon_trainer (pokemon_id, trainer_id) values ?`;
+                let inserts = [];
+                for (let i = 0; i < trainer.types.length; i++) {
+                    inserts.push([trainer.owned[i], insertId]);
+                }
+                return db.query(sql, [inserts]);
+            }
+        }).then(() => {
+        return db.close();
+    })
+        .then(() => {
+            return null;
+        })
+        .catch(err => {
+            return err;
+        });
+}
+
+
 exports.getTrainerByName = getTrainerByName;
 exports.searchTrainerByName = searchTrainerByName;
+exports.updateTrainer = updateTrainer;

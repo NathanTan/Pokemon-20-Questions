@@ -78,7 +78,7 @@ function searchPokemonByName(db, pokemon_name, res) {
 }
 
 
-function updatePokemon(db, pokemon, res) {
+function updatePokemon(db, pokemon) {
     let sql = `insert into pokemon (id, name, evolution, description) values (?, ?, ?, ?) on duplicate key update name=values(name), evolution=values(evolution), description=values(description)`;
     let inserts = [pokemon.id, pokemon.name, pokemon.evolution, pokemon.description];
 
@@ -101,14 +101,11 @@ function updatePokemon(db, pokemon, res) {
             return db.close();
         })
         .then(() => {
-            res.status(200).sendFile('./draft/pokemon.html', {root: __dirname});
+            return null;
         })
         .catch(err => {
-                console.log("Error inserting or updating Pokemon: " + JSON.stringify(err));
-                res.write(JSON.stringify(err));
-                res.end();
-            }
-        );
+            return err;
+        });
 }
 
 exports.getPokemonByName = getPokemonByName;

@@ -37,7 +37,9 @@ function getTypeByName(db, type_name, res) {
             for (let key of otherRows) {
                 ids.push(key.type_id2)
             }
-            return db.query(sql3, ids) 
+            if (ids.length > 0) {
+                return db.query(sql3, ids)
+            }
         })
         .then( rows => {
 
@@ -71,7 +73,7 @@ function getTypeByName(db, type_name, res) {
                         })
                     break
                     case 2:
-                        notEffective.types.push({
+                        noEffect.types.push({
                             id: key.type_id2,
                             name: key.name
                         })
@@ -86,5 +88,65 @@ function getTypeByName(db, type_name, res) {
             console.log("type:",type)
             res.json(type)
         })
+        .catch(err => {
+            console.log("Error getting Type " + type_name + ": " + err);
+        });
 }
-exports.getTypeByName = getTypeByName
+
+
+function updateType(db, type) {
+    let insertId = -1;
+    let sql = `insert into type (name) values (?)`;
+    let inserts = [type.name];
+
+    if (type.id !== "") {
+        insertId = type.id;
+        sql = `update type set name=? where id=?`;
+        inserts = [type.name, type.id];
+    }
+
+    db.query(sql, inserts)
+        .then((rows) => {
+            if (insertId < 0) {
+                insertId = rows.insertId;
+            }
+
+            let sql = `delete from type_effect where type_id1 = ?`;
+            let inserts = [insertId];
+            return db.query(sql, inserts);
+        })
+        .then(() => {
+            let sql = `insert into type_effect (type_id1, type_id2, effect_id) values ?`;
+            let inserts = [];
+            if (type.hasOwnProperty("weak")) {
+                for (let i = 0; i < type.weak.length; i++) {
+                    inserts.push([insertId, type.weak[i], 0]);
+                }
+            }
+            if (type.hasOwnProperty("strong")) {
+                for (let i = 0; i < type.strong.length; i++) {
+                    inserts.push([insertId, type.strong[i], 1]);
+                }
+            }
+            if (type.hasOwnProperty("none")) {
+                for (let i = 0; i < type.none.length; i++) {
+                    inserts.push([insertId, type.none[i], 2]);
+                }
+            }
+            if (inserts.length > 0) {
+                return db.query(sql, [inserts]);
+            }
+        })
+        .then(() => {
+            return db.close();
+        })
+        .then(() => {
+            return null;
+        })
+        .catch(err => {
+            return err;
+        });
+}
+
+exports.getTypeByName = getTypeByName;
+exports.updateType = updateType;

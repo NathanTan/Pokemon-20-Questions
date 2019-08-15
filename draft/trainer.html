@@ -14,9 +14,10 @@
 
 <!-- These forms need a name attr on each field for the bodyparser server side -->
 
-<form method="POST" action="/trainer">
+<form id="main" method="POST" action="/trainer">
     <fieldset>
         <legend>Add or edit a Trainer</legend>
+        <input id="id" name="id" type="hidden">
         <label>Name:<input type="text" id="name" name="name"> </label>
         <br/>
         <div class="wrapper">
@@ -33,10 +34,10 @@
         <div class="wrapper">
             <div>&nbsp;</div>
             <div>
-                <input id="ptypes-to-available" type="button" value="->">
+                <input id="ttypes-to-available" type="button" value="->">
             </div>
             <div>
-                <input id="available-to-ptypes" type="button" value="<-">
+                <input id="available-to-ttypes" type="button" value="<-">
             </div>
         </div>
         <div class="wrapper">
@@ -45,13 +46,12 @@
             </div>
             <div class="inner">
                 <label>
-                    <select id="available-types" multiple="multiple" name="types">
+                    <select id="available-types" multiple="multiple">
                     </select>
                 </label>
             </div>
         </div>
 
-<!--        <label>Type: <select id="ttypes" name="type"></select></label>-->
         <br/>
         <div class="flush-left">
         <div class="wrapper">
@@ -60,7 +60,7 @@
             </div>
             <div class="inner">
                 <label>
-                    <select id="owned" multiple="multiple" name="types">
+                    <select id="owned" multiple="multiple" name="owned">
                     </select>
                 </label>
             </div>
@@ -80,7 +80,7 @@
             </div>
             <div class="inner">
                 <label>
-                    <select id="available-pokemons" multiple="multiple" name="types">
+                    <select id="available-pokemons" multiple="multiple">
                     </select>
                 </label>
             </div>
@@ -88,7 +88,7 @@
         </div>
         <br/>
         <div class="flush-left">
-            <input style="clear: both" type="submit" value="Save">
+            <input type="submit" value="Save">
         </div>
     </fieldset>
 </form>
@@ -161,6 +161,7 @@
 
         let endpoint = window.location.href + "/" + item.name;
         fetchData(endpoint, data => {
+            document.getElementById("id").value = data.id;
             document.getElementById("name").value = data.name;
             document.getElementById("ttypes").innerHTML = "";
             document.getElementById("owned").innerHTML = "";
@@ -170,14 +171,28 @@
         })
     }
 
+    function processForm() {
+        selectAllItems("ttypes");
+        selectAllItems("owned");
+        return true;
+    }
+
     // Set event handlers
     document.getElementById("getData").addEventListener("click", getAllTrainers);
     document.getElementById("search").addEventListener("click", searchTrainer);
 
+    document.getElementById("ttypes-to-available").addEventListener("click", () => moveSelected("ttypes", "available-types"));
+    document.getElementById("available-to-ttypes").addEventListener("click", () => moveSelected("available-types", "ttypes"));
+
+    document.getElementById("owned-to-available").addEventListener("click", () => moveSelected("owned", "available-pokemons"));
+    document.getElementById("available-to-owned").addEventListener("click", () => moveSelected("available-pokemons", "owned"));
+
+    document.getElementById("main").addEventListener("submit", () => processForm());
 
 
-    document.getElementById("owned-to-available").addEventListener("click", () => moveSelected("owned", "available"));
-    document.getElementById("available-to-owned").addEventListener("click", () => moveSelected("available", "owned"));
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
 </script>
 
 
