@@ -1,5 +1,5 @@
 exports.getAllMoves = function (res, mysqlPool, context, onComplete){
-    mysqlPool.query("SELECT m.id, m.name, m.power, m.accurary, t.id as tid, t.name as tname FROM move m join type t on m.type=t.id", function(error, results, fields){
+    mysqlPool.query("SELECT m.id, m.name, m.power, m.accuracy, t.id as tid, t.name as tname FROM move m join type t on m.type=t.id", function(error, results, fields){
         if(error){
             console.log("ERROR:", error)
             res.write(JSON.stringify(error))
