@@ -63,7 +63,10 @@ function populateTable(tableName, dbData, columnMapping) {
             function() {
                     fetch(window.location.href + '/' + dbData[i].id, {
                     method: 'delete'
-                }).then(response => response.json())
+                }).then(response => {
+                    // response.json();
+                    reloadData();
+                    })
             })
         );
         let del = tr.insertCell(-1);

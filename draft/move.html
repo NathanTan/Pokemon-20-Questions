@@ -59,7 +59,8 @@
             "name": {"alias": "Name"},
             "power": {"alias": "Power"},
             "accuracy": {"alias": "Accuracy"},
-            "type": {"alias": "Type"}
+            "tid": {"alias": "TypeId", "visible": false},
+            "tname": {"alias": "Type"}
         };
         fetchData(endpoint, data => populateTable("moves", data, columnMapping));
     }
@@ -88,6 +89,10 @@
             document.getElementById("accuracy").value = data.accuracy;
             document.getElementById("mtypes").value = data.type.id;
         })
+    }
+
+    function reloadData() {
+        getAllMoves();
     }
 
     // Set event handlers

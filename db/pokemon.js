@@ -2,7 +2,7 @@ const { getTypesByPokemonId } = require('./type')
 
 exports.getAllPokemons = function (res, mysqlPool, context, onComplete){
     console.log("getPokemon pool:", mysqlPool)
-        mysqlPool.query("SELECT * FROM pokemon", function(error, results, fields){
+        mysqlPool.query("select p.id, p.name, p.description,  e.id as eid, e.name as ename from pokemon p left join pokemon e on e.id = p.evolution", function(error, results, fields){
             if(error){
                 console.log("ERROR:", error)
                 res.write(JSON.stringify(error))
