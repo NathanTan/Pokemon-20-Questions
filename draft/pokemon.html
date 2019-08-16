@@ -92,8 +92,9 @@
         let columnMapping = {
             "id": {"alias": "Number"},
             "name": {"alias": "Name"},
-            "evolution": {"alias": "Evolution"},
-            "description": {"alias": "Description"}
+            "description": {"alias": "Description"},
+            "eid": {"alias": "EvId", "visible": false},
+            "ename" : {"alias": "Evolution"},
         };
         fetchData(endpoint, data => populateTable("pokemons", data, columnMapping));
     }
@@ -139,6 +140,10 @@
 
             moveItemsById(data.types, "available", "ptypes")
         })
+    }
+
+    function reloadData() {
+        getAllPokemons();
     }
 
     function processForm() {
